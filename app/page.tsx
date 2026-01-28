@@ -143,6 +143,7 @@ export default function Home() {
             const index = SECTIONS.indexOf(section)
             if (index !== -1) {
               setCurrentIndex(index)
+              setCurrentSubsection(0)
             }
           }} />
 

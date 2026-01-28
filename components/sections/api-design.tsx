@@ -110,6 +110,38 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
               </CardHeader>
             <CardContent>
               <CodeBlock code={requestSchema} language="json" />
+              
+              {/* Visual Schema Diagram */}
+              <div className="mt-6 p-4 border rounded-lg bg-muted/30">
+                <h4 className="font-medium text-sm mb-3">Request Structure</h4>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-blue-500">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">question</div>
+                      <div className="text-xs text-muted-foreground">string (required) • max 1000 chars</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-blue-500">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">reference_answer</div>
+                      <div className="text-xs text-muted-foreground">string (required) • max 2000 chars</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-blue-500">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">student_answer</div>
+                      <div className="text-xs text-muted-foreground">string (required) • max 2000 chars</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-accent">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">metadata</div>
+                      <div className="text-xs text-muted-foreground">object (optional) • tracking data</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
               <div className="mt-4 space-y-2">
                 <h4 className="font-medium text-sm">Required Fields</h4>
                 <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
@@ -129,6 +161,62 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
               </CardHeader>
             <CardContent>
               <CodeBlock code={responseSchema} language="json" />
+              
+              {/* Visual Schema Diagram */}
+              <div className="mt-6 p-4 border rounded-lg bg-muted/30">
+                <h4 className="font-medium text-sm mb-3">Response Structure</h4>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">request_id</div>
+                      <div className="text-xs text-muted-foreground">string • unique identifier</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">grade</div>
+                      <div className="text-xs text-muted-foreground">string • correct | partially_correct | incorrect</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">label_id</div>
+                      <div className="text-xs text-muted-foreground">integer • 0 | 1 | 2</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">processed_at</div>
+                      <div className="text-xs text-muted-foreground">string • ISO 8601 timestamp</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">model_version</div>
+                      <div className="text-xs text-muted-foreground">string • deployed model version</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-yellow-500/50">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">confidence</div>
+                      <div className="text-xs text-muted-foreground">float | null • post-MVP feature</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-yellow-500/50">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">justification</div>
+                      <div className="text-xs text-muted-foreground">string | null • post-MVP feature</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-yellow-500/50">
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">feedback</div>
+                      <div className="text-xs text-muted-foreground">string | null • post-MVP feature</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
               <div className="mt-4 p-4 bg-accent/10 border border-accent/20 rounded-lg">
                 <h4 className="font-medium text-sm text-accent">Post-MVP Extensibility</h4>
                 <p className="text-sm text-muted-foreground mt-1">
@@ -136,6 +224,48 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
                   and formative feedback. These will be populated when features are implemented 
                   without breaking API compatibility.
                 </p>
+              </div>
+              
+              {/* Future Extension Fields */}
+              <div className="mt-4 p-4 border-2 border-dashed border-accent/30 rounded-lg bg-accent/5">
+                <h4 className="font-medium text-sm mb-3 flex items-center gap-2">
+                  <span className="text-accent">🔮</span>
+                  Future Extension: Custom Fields Collection
+                </h4>
+                <div className="space-y-2 text-sm">
+                  <p className="text-muted-foreground mb-3">
+                    For post-MVP features, the API can leverage a flexible JSONB extension field without schema migration:
+                  </p>
+                  <div className="p-3 bg-background rounded border">
+                    <div className="font-mono text-xs">
+                      <span className="text-blue-400">"extensions"</span>: {'{'}
+                      <div className="ml-4 text-muted-foreground">
+                        <div><span className="text-green-400">"confidence_breakdown"</span>: {'{'}
+                          <div className="ml-4">
+                            <div><span className="text-yellow-400">"overall"</span>: 0.87,</div>
+                            <div><span className="text-yellow-400">"by_criterion"</span>: {'{'} ... {'}'}</div>
+                          </div>
+                        {'}'},</div>
+                        <div><span className="text-green-400">"justification"</span>: {'{'}
+                          <div className="ml-4">
+                            <div><span className="text-yellow-400">"missing_concepts"</span>: [...],</div>
+                            <div><span className="text-yellow-400">"incorrect_statements"</span>: [...]</div>
+                          </div>
+                        {'}'},</div>
+                        <div><span className="text-green-400">"feedback"</span>: {'{'}
+                          <div className="ml-4">
+                            <div><span className="text-yellow-400">"suggestions"</span>: [...],</div>
+                            <div><span className="text-yellow-400">"resources"</span>: [...]</div>
+                          </div>
+                        {'}'}</div>
+                      </div>
+                      {'}'}
+                    </div>
+                  </div>
+                  <div className="mt-3 text-xs text-muted-foreground">
+                    <strong>Benefits:</strong> Zero-downtime deployment, backward compatibility, feature flags per client
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -312,6 +442,243 @@ CREATE TABLE grading_submissions (
 );`} 
             language="sql" 
           />
+          
+          {/* Visual Database Schema */}
+          <div className="mt-6 p-4 border rounded-lg bg-muted/30">
+            <h4 className="font-medium text-sm mb-4">Entity Relationship Diagram</h4>
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* grading_submissions table */}
+              <div className="border-2 border-primary rounded-lg overflow-hidden">
+                <div className="bg-primary text-primary-foreground px-4 py-2 font-semibold text-sm">
+                  grading_submissions
+                </div>
+                <div className="p-3 space-y-1 bg-background">
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-yellow-500">🔑</span>
+                    <span className="font-mono">id</span>
+                    <span className="text-muted-foreground">UUID</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">request_id</span>
+                    <span className="text-muted-foreground">VARCHAR(32)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">question</span>
+                    <span className="text-muted-foreground">TEXT</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">reference_answer</span>
+                    <span className="text-muted-foreground">TEXT</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">student_answer</span>
+                    <span className="text-muted-foreground">TEXT</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-accent">○</span>
+                    <span className="font-mono">metadata</span>
+                    <span className="text-muted-foreground">JSONB</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-green-500">●</span>
+                    <span className="font-mono">grade</span>
+                    <span className="text-muted-foreground">VARCHAR(20)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-green-500">●</span>
+                    <span className="font-mono">label_id</span>
+                    <span className="text-muted-foreground">SMALLINT</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-accent">○</span>
+                    <span className="font-mono">confidence</span>
+                    <span className="text-muted-foreground">FLOAT (Post-MVP)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-accent">○</span>
+                    <span className="font-mono">justification</span>
+                    <span className="text-muted-foreground">TEXT (Post-MVP)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-accent">○</span>
+                    <span className="font-mono">feedback</span>
+                    <span className="text-muted-foreground">TEXT (Post-MVP)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">model_version</span>
+                    <span className="text-muted-foreground">VARCHAR(20)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-accent">○</span>
+                    <span className="font-mono">processing_time_ms</span>
+                    <span className="text-muted-foreground">INTEGER</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-purple-500">🔗</span>
+                    <span className="font-mono">api_key_id</span>
+                    <span className="text-muted-foreground">UUID → api_keys</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">created_at</span>
+                    <span className="text-muted-foreground">TIMESTAMPTZ</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* api_keys table */}
+              <div className="border-2 border-accent rounded-lg overflow-hidden">
+                <div className="bg-accent text-accent-foreground px-4 py-2 font-semibold text-sm">
+                  api_keys
+                </div>
+                <div className="p-3 space-y-1 bg-background">
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-yellow-500">🔑</span>
+                    <span className="font-mono">id</span>
+                    <span className="text-muted-foreground">UUID</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">key_hash</span>
+                    <span className="text-muted-foreground">VARCHAR(64)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">service_name</span>
+                    <span className="text-muted-foreground">VARCHAR(100)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">rate_limit</span>
+                    <span className="text-muted-foreground">INTEGER</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">created_at</span>
+                    <span className="text-muted-foreground">TIMESTAMPTZ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-4 flex gap-4 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <span className="text-yellow-500">🔑</span> Primary Key
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-purple-500">🔗</span> Foreign Key
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-blue-500">●</span> Required
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-accent">○</span> Optional
+              </div>
+            </div>
+          </div>
+          
+          {/* Post-MVP Extension Table */}
+          <div className="mt-6 p-4 border-2 border-dashed border-accent/30 rounded-lg bg-accent/5">
+            <h4 className="font-medium text-sm mb-3 flex items-center gap-2">
+              <span className="text-accent">🔮</span>
+              Post-MVP Extension: Enhanced Features Table
+            </h4>
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* grading_enhancements table */}
+              <div className="border-2 border-accent/50 border-dashed rounded-lg overflow-hidden">
+                <div className="bg-accent/20 text-foreground px-4 py-2 font-semibold text-sm">
+                  grading_enhancements
+                </div>
+                <div className="p-3 space-y-1 bg-background">
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-yellow-500">🔑</span>
+                    <span className="font-mono">id</span>
+                    <span className="text-muted-foreground">UUID</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-purple-500">🔗</span>
+                    <span className="font-mono">submission_id</span>
+                    <span className="text-muted-foreground">UUID → grading_submissions</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-green-500">●</span>
+                    <span className="font-mono">confidence_score</span>
+                    <span className="text-muted-foreground">FLOAT (0.0-1.0)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-accent">○</span>
+                    <span className="font-mono">confidence_breakdown</span>
+                    <span className="text-muted-foreground">JSONB</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-accent">○</span>
+                    <span className="font-mono">justification_text</span>
+                    <span className="text-muted-foreground">TEXT</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-accent">○</span>
+                    <span className="font-mono">missing_concepts</span>
+                    <span className="text-muted-foreground">TEXT[]</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-accent">○</span>
+                    <span className="font-mono">feedback_suggestions</span>
+                    <span className="text-muted-foreground">JSONB</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-accent">○</span>
+                    <span className="font-mono">resource_links</span>
+                    <span className="text-muted-foreground">JSONB</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">created_at</span>
+                    <span className="text-muted-foreground">TIMESTAMPTZ</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Benefits list */}
+              <div className="flex flex-col justify-center space-y-3 text-sm">
+                <div className="p-3 bg-background rounded border">
+                  <div className="font-semibold text-accent mb-1">✓ Zero Schema Migration</div>
+                  <div className="text-xs text-muted-foreground">
+                    Existing queries remain unchanged
+                  </div>
+                </div>
+                <div className="p-3 bg-background rounded border">
+                  <div className="font-semibold text-accent mb-1">✓ Optional Join</div>
+                  <div className="text-xs text-muted-foreground">
+                    Load enhancements only when needed
+                  </div>
+                </div>
+                <div className="p-3 bg-background rounded border">
+                  <div className="font-semibold text-accent mb-1">✓ Feature Flags</div>
+                  <div className="text-xs text-muted-foreground">
+                    Enable per-client or A/B testing
+                  </div>
+                </div>
+                <div className="p-3 bg-background rounded border">
+                  <div className="font-semibold text-accent mb-1">✓ Backward Compatible</div>
+                  <div className="text-xs text-muted-foreground">
+                    API can return null for MVP clients
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-4 p-3 bg-background rounded text-xs">
+              <strong className="text-accent">Alternative:</strong> <span className="text-muted-foreground">
+                Add a single <code className="bg-muted px-1 py-0.5 rounded">extensions JSONB</code> column to grading_submissions 
+                for maximum flexibility without additional joins.
+              </span>
+            </div>
+          </div>
         </CardContent>
       </Card>
       </div>
