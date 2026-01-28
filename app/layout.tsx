@@ -17,7 +17,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'AutoGrade MVP | Short-Answer Grading Service',
   description: 'Automated Short-Answer Grading Service MVP - Interview Presentation for Cambridge University Press & Assessment',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
