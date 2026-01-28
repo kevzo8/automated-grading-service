@@ -4,6 +4,8 @@ import { useState } from "react"
 import { Check, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
 
 interface CodeBlockProps {
   code: string
@@ -22,7 +24,7 @@ export function CodeBlock({ code, language = "text", className }: CodeBlockProps
 
   return (
     <div className={cn("relative group", className)}>
-      <div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
         <Button
           variant="ghost"
           size="icon"
@@ -36,14 +38,24 @@ export function CodeBlock({ code, language = "text", className }: CodeBlockProps
           )}
         </Button>
       </div>
-      <div className="flex items-center justify-between px-4 py-2 bg-muted/80 border-b border-border rounded-t-lg">
-        <span className="text-xs text-muted-foreground font-mono">{language}</span>
+      <div className="flex items-center justify-between px-4 py-2 bg-[#282c34] border-b border-border rounded-t-lg">
+        <span className="text-xs text-gray-400 font-mono">{language}</span>
       </div>
-      <pre className="p-4 bg-muted/50 rounded-b-lg overflow-x-auto">
-        <code className="text-sm font-mono text-foreground whitespace-pre">
+      <div className="rounded-b-lg overflow-hidden">
+        <SyntaxHighlighter 
+          language={language} 
+          style={atomOneDark}
+          customStyle={{
+            margin: 0,
+            padding: "1rem",
+            fontSize: "0.875rem",
+            lineHeight: "1.5"
+          }}
+          wrapLongLines
+        >
           {code}
-        </code>
-      </pre>
+        </SyntaxHighlighter>
+      </div>
     </div>
   )
 }

@@ -1,10 +1,14 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CodeBlock } from "@/components/code-block"
 import { AlertTriangle, CheckCircle, Clock, Zap } from "lucide-react"
 
-export function MLMethodology() {
+export function MLMethodology({ currentSubsection }: { currentSubsection: string }) {
+  const [activeDataTab, setActiveDataTab] = useState("processing")
   const dataProcessingCode = `from datasets import load_dataset
 import pandas as pd
 
@@ -104,6 +108,13 @@ def adjacent_agreement(y_true, y_pred):
     """For educational products, being off by 1 grade is better than 2."""
     return sum(abs(t - p) <= 1 for t, p in zip(y_true, y_pred)) / len(y_true)`
 
+  // Auto-switch data strategy tabs based on current subsection
+  useEffect(() => {
+    if (currentSubsection === "ml-methodology-data-processing-processing") setActiveDataTab("processing")
+    else if (currentSubsection === "ml-methodology-data-processing-imbalance") setActiveDataTab("imbalance")
+    else if (currentSubsection === "ml-methodology-data-processing-augmentation") setActiveDataTab("augmentation")
+  }, [currentSubsection])
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -195,6 +206,9 @@ def adjacent_agreement(y_true, y_pred):
       </div>
 
       {/* Data Processing */}
+      <div id="ml-methodology-data-processing-processing"></div>
+      <div id="ml-methodology-data-processing-imbalance"></div>
+      <div id="ml-methodology-data-processing-augmentation"></div>
       <div id="ml-methodology-data-processing">
         <Card>
           <CardHeader>
@@ -202,7 +216,7 @@ def adjacent_agreement(y_true, y_pred):
           <CardDescription>Processing SciEntsBank for 3-way classification</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="processing">
+          <Tabs value={activeDataTab} onValueChange={setActiveDataTab}>
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="processing">Data Processing</TabsTrigger>
               <TabsTrigger value="imbalance">Class Imbalance</TabsTrigger>

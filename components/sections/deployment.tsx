@@ -1,10 +1,13 @@
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CodeBlock } from "@/components/code-block"
 import { AlertTriangle, CheckCircle, Activity, Shield, GitBranch, RefreshCw } from "lucide-react"
 
-export function Deployment() {
+export function Deployment({ currentSubsection }: { currentSubsection: string }) {
+  const [activeTestTab, setActiveTestTab] = useState("unit")
+  const [activeMonitorTab, setActiveMonitorTab] = useState("dashboard")
   const dockerfileCode = `# Multi-stage build for optimized production image
 FROM python:3.11-slim as builder
 
@@ -219,6 +222,16 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
   alarm_actions       = [aws_sns_topic.alerts.arn]
 }`
 
+  // Auto-switch testing tabs based on current subsection
+  useEffect(() => {
+    if (currentSubsection === "deployment-testing-unit") setActiveTestTab("unit")
+    else if (currentSubsection === "deployment-testing-load") setActiveTestTab("load")
+    else if (currentSubsection === "deployment-testing-ml") setActiveTestTab("ml")
+    
+    if (currentSubsection === "deployment-observability-dashboard") setActiveMonitorTab("dashboard")
+    else if (currentSubsection === "deployment-observability-alerts") setActiveMonitorTab("alerts")
+  }, [currentSubsection])
+
   return (
     <div id="deployment-overview" className="space-y-8">
       {/* Header */}
@@ -232,6 +245,9 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
       </div>
 
       {/* Testing Strategy */}
+      <div id="deployment-testing-unit"></div>
+      <div id="deployment-testing-load"></div>
+      <div id="deployment-testing-ml"></div>
       <div id="deployment-testing">
         <Card>
           <CardHeader>
@@ -239,7 +255,7 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
           <CardDescription>Comprehensive testing pyramid for ML services</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="unit">
+          <Tabs value={activeTestTab} onValueChange={setActiveTestTab}>
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="unit">Unit & Integration</TabsTrigger>
               <TabsTrigger value="load">Load Testing</TabsTrigger>
@@ -399,6 +415,8 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
       </div>
 
       {/* Observability */}
+      <div id="deployment-observability-dashboard"></div>
+      <div id="deployment-observability-alerts"></div>
       <div id="deployment-observability">
         <Card>
           <CardHeader>
@@ -406,7 +424,7 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
           <CardDescription>Detecting issues before user complaints</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="dashboard">
+          <Tabs value={activeMonitorTab} onValueChange={setActiveMonitorTab}>
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
               <TabsTrigger value="alerts">Alerts</TabsTrigger>

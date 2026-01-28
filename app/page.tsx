@@ -105,17 +105,18 @@ export default function Home() {
 
   // Memoize section rendering to prevent unnecessary re-renders
   const renderSection = useMemo(() => {
+    const subsectionId = getSubsectionId(activeSection, currentSubsection)
     switch (activeSection) {
       case "overview":
         return <Overview />
       case "api-design":
-        return <APIDesign />
+        return <APIDesign currentSubsection={subsectionId} />
       case "architecture":
         return <Architecture />
       case "ml-methodology":
-        return <MLMethodology />
+        return <MLMethodology currentSubsection={subsectionId} />
       case "deployment":
-        return <Deployment />
+        return <Deployment currentSubsection={subsectionId} />
       case "playground":
         return <Playground />
       case "timeline":
@@ -131,7 +132,7 @@ export default function Home() {
       default:
         return <Overview />
     }
-  }, [activeSection])
+  }, [activeSection, currentSubsection])
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">

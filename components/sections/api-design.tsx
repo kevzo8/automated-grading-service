@@ -1,9 +1,13 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CodeBlock } from "@/components/code-block"
 
-export function APIDesign() {
+export function APIDesign({ currentSubsection }: { currentSubsection: string }) {
+  const [activeTab, setActiveTab] = useState("request")
   const requestSchema = `{
   "question": "What is a controlled experiment?",
   "reference_answer": "A controlled experiment is one where all variables are held constant except the one being tested.",
@@ -48,6 +52,13 @@ X-RateLimit-Limit: 1000          # Requests per hour
 X-RateLimit-Remaining: 847       # Remaining requests
 X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
 
+  // Auto-switch tabs based on current subsection
+  useEffect(() => {
+    if (currentSubsection === "api-design-request-schema") setActiveTab("request")
+    else if (currentSubsection === "api-design-response-schema") setActiveTab("response")
+    else if (currentSubsection === "api-design-error-handling") setActiveTab("error")
+  }, [currentSubsection])
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -81,8 +92,11 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
       </div>
 
       {/* Request/Response Schemas */}
+      <div id="api-design-request-schema"></div>
+      <div id="api-design-response-schema"></div>
+      <div id="api-design-error-handling"></div>
       <div id="api-design-request-response">
-      <Tabs defaultValue="request" className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="request">Request Schema</TabsTrigger>
           <TabsTrigger value="response">Response Schema</TabsTrigger>
@@ -90,10 +104,10 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
         </TabsList>
         <TabsContent value="request" className="mt-4">
           <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Request Payload</CardTitle>
-              <CardDescription>JSON body for grading requests</CardDescription>
-            </CardHeader>
+              <CardHeader>
+                <CardTitle className="text-base">Request Payload</CardTitle>
+                <CardDescription>JSON body for grading requests</CardDescription>
+              </CardHeader>
             <CardContent>
               <CodeBlock code={requestSchema} language="json" />
               <div className="mt-4 space-y-2">
@@ -109,10 +123,10 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
         </TabsContent>
         <TabsContent value="response" className="mt-4">
           <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Success Response</CardTitle>
-              <CardDescription>HTTP 200 response payload</CardDescription>
-            </CardHeader>
+              <CardHeader>
+                <CardTitle className="text-base">Success Response</CardTitle>
+                <CardDescription>HTTP 200 response payload</CardDescription>
+              </CardHeader>
             <CardContent>
               <CodeBlock code={responseSchema} language="json" />
               <div className="mt-4 p-4 bg-accent/10 border border-accent/20 rounded-lg">
@@ -128,10 +142,10 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
         </TabsContent>
         <TabsContent value="error" className="mt-4">
           <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Error Response</CardTitle>
-              <CardDescription>Standardized error format</CardDescription>
-            </CardHeader>
+              <CardHeader>
+                <CardTitle className="text-base">Error Response</CardTitle>
+                <CardDescription>Standardized error format</CardDescription>
+              </CardHeader>
             <CardContent>
               <CodeBlock code={errorResponse} language="json" />
               <div className="mt-4 space-y-2">
