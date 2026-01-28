@@ -51,7 +51,7 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="space-y-4">
+      <div id="api-design-overview" className="space-y-4">
         <Badge variant="secondary">A. System Architecture</Badge>
         <h1 className="text-4xl font-bold tracking-tight">API Design</h1>
         <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -61,6 +61,7 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
       </div>
 
       {/* Endpoint Overview */}
+      <div id="api-design-endpoints">
       <Card>
         <CardHeader>
           <CardTitle>Primary Endpoint</CardTitle>
@@ -77,8 +78,10 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
           </p>
         </CardContent>
       </Card>
+      </div>
 
       {/* Request/Response Schemas */}
+      <div id="api-design-request-response">
       <Tabs defaultValue="request" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="request">Request Schema</TabsTrigger>
@@ -156,8 +159,10 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
 
       {/* Authentication */}
+      <div id="api-design-authentication">
       <Card>
         <CardHeader>
           <CardTitle>Authentication Strategy</CardTitle>
@@ -183,8 +188,10 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* Rate Limiting */}
+      <div id="api-design-rate-limiting">
       <Card>
         <CardHeader>
           <CardTitle>Rate Limiting</CardTitle>
@@ -208,8 +215,10 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* Data Persistence */}
+      <div id="api-design-data-persistence">
       <Card>
         <CardHeader>
           <CardTitle>Data Persistence Strategy</CardTitle>
@@ -245,8 +254,10 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* Database Schema */}
+      <div id="api-design-database-schema">
       <Card>
         <CardHeader>
           <CardTitle>Database Schema</CardTitle>
@@ -289,6 +300,7 @@ CREATE TABLE grading_submissions (
           />
         </CardContent>
       </Card>
+      </div>
     </div>
   )
 }

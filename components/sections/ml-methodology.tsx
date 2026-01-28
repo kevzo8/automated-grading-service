@@ -107,7 +107,7 @@ def adjacent_agreement(y_true, y_pred):
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="space-y-4">
+      <div id="ml-methodology-overview" className="space-y-4">
         <Badge variant="secondary">B. ML Methodology</Badge>
         <h1 className="text-4xl font-bold tracking-tight">ML Methodology & Operationalization</h1>
         <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -117,9 +117,10 @@ def adjacent_agreement(y_true, y_pred):
       </div>
 
       {/* Model Selection */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Model Selection: DeBERTa-v3-base</CardTitle>
+      <div id="ml-methodology-model-selection">
+        <Card>
+          <CardHeader>
+            <CardTitle>Model Selection: DeBERTa-v3-base</CardTitle>
           <CardDescription>Balancing accuracy and latency for production deployment</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -190,12 +191,14 @@ def adjacent_agreement(y_true, y_pred):
             </div>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Data Processing */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Data Strategy</CardTitle>
+      <div id="ml-methodology-data-processing">
+        <Card>
+          <CardHeader>
+            <CardTitle>Data Strategy</CardTitle>
           <CardDescription>Processing SciEntsBank for 3-way classification</CardDescription>
         </CardHeader>
         <CardContent>
@@ -273,23 +276,27 @@ def adjacent_agreement(y_true, y_pred):
             </TabsContent>
           </Tabs>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Model Training Code */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Model Training</CardTitle>
+      <div id="ml-methodology-training">
+        <Card>
+          <CardHeader>
+            <CardTitle>Model Training</CardTitle>
           <CardDescription>Fine-tuning configuration for short-answer grading</CardDescription>
         </CardHeader>
         <CardContent>
           <CodeBlock code={modelCode} language="python" />
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Evaluation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Evaluation Framework</CardTitle>
+      <div id="ml-methodology-evaluation">
+        <Card>
+          <CardHeader>
+            <CardTitle>Evaluation Framework</CardTitle>
           <CardDescription>Metrics critical for educational products</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -323,59 +330,63 @@ def adjacent_agreement(y_true, y_pred):
             </div>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Production Validation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Pre-Production Validation</CardTitle>
-          <CardDescription>Steps before releasing to production</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="flex items-start gap-4 p-4 bg-muted rounded-lg">
-              <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium shrink-0">1</div>
-              <div>
-                <h4 className="font-medium text-sm">Cross-Validation</h4>
-                <p className="text-sm text-muted-foreground">5-fold stratified CV on training data to ensure robust performance estimates.</p>
+      <div id="ml-methodology-pre-production-validation">
+        <Card>
+          <CardHeader>
+            <CardTitle>Pre-Production Validation</CardTitle>
+            <CardDescription>Steps before releasing to production</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4 p-4 bg-muted rounded-lg">
+                <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium shrink-0">1</div>
+                <div>
+                  <h4 className="font-medium text-sm">Cross-Validation</h4>
+                  <p className="text-sm text-muted-foreground">5-fold stratified CV on training data to ensure robust performance estimates.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 p-4 bg-muted rounded-lg">
+                <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium shrink-0">2</div>
+                <div>
+                  <h4 className="font-medium text-sm">UA/UQ/UD Evaluation</h4>
+                  <p className="text-sm text-muted-foreground">Report performance separately on Unseen Answers (primary), Unseen Questions, and Unseen Domains.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 p-4 bg-muted rounded-lg">
+                <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium shrink-0">3</div>
+                <div>
+                  <h4 className="font-medium text-sm">Error Analysis</h4>
+                  <p className="text-sm text-muted-foreground">Manual review of misclassified examples, especially partial vs incorrect confusion.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 p-4 bg-muted rounded-lg">
+                <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium shrink-0">4</div>
+                <div>
+                  <h4 className="font-medium text-sm">SME Review</h4>
+                  <p className="text-sm text-muted-foreground">Subject Matter Experts validate a sample of predictions before production release.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 p-4 bg-muted rounded-lg">
+                <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium shrink-0">5</div>
+                <div>
+                  <h4 className="font-medium text-sm">Shadow Mode</h4>
+                  <p className="text-sm text-muted-foreground">Run model in production without serving results, compare to manual grades for 1-2 weeks.</p>
+                </div>
               </div>
             </div>
-            <div className="flex items-start gap-4 p-4 bg-muted rounded-lg">
-              <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium shrink-0">2</div>
-              <div>
-                <h4 className="font-medium text-sm">UA/UQ/UD Evaluation</h4>
-                <p className="text-sm text-muted-foreground">Report performance separately on Unseen Answers (primary), Unseen Questions, and Unseen Domains.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4 p-4 bg-muted rounded-lg">
-              <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium shrink-0">3</div>
-              <div>
-                <h4 className="font-medium text-sm">Error Analysis</h4>
-                <p className="text-sm text-muted-foreground">Manual review of misclassified examples, especially partial vs incorrect confusion.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4 p-4 bg-muted rounded-lg">
-              <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium shrink-0">4</div>
-              <div>
-                <h4 className="font-medium text-sm">SME Review</h4>
-                <p className="text-sm text-muted-foreground">Subject Matter Experts validate a sample of predictions before production release.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4 p-4 bg-muted rounded-lg">
-              <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium shrink-0">5</div>
-              <div>
-                <h4 className="font-medium text-sm">Shadow Mode</h4>
-                <p className="text-sm text-muted-foreground">Run model in production without serving results, compare to manual grades for 1-2 weeks.</p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Post-MVP: LLM Integration */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Post-MVP: LLM for Justification & Feedback</CardTitle>
+      <div id="ml-methodology-llm-integration">
+        <Card>
+          <CardHeader>
+            <CardTitle>Post-MVP: LLM for Justification & Feedback</CardTitle>
           <CardDescription>Hybrid architecture for stretch goals</CardDescription>
         </CardHeader>
         <CardContent>
@@ -399,7 +410,8 @@ def adjacent_agreement(y_true, y_pred):
             </p>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
     </div>
   )
 }

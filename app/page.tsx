@@ -1,8 +1,11 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import dynamic from "next/dynamic"
 import { Sidebar } from "@/components/sidebar"
+import { Button } from "@/components/ui/button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { SUBSECTIONS, getSubsectionId } from "@/lib/subsections"
 
 // Dynamic imports for code splitting - components load only when needed
 const Overview = dynamic(() => import("@/components/sections/overview").then(mod => ({ default: mod.Overview })), { ssr: true })
@@ -30,8 +33,75 @@ export type Section =
   | "qa-section"
   | "thank-you"
 
+const SECTIONS: Section[] = [
+  "overview",
+  "api-design",
+  "architecture",
+  "ml-methodology",
+  "tech-stack",
+  "cost-analysis",
+  "deployment",
+  "timeline",
+  "playground",
+  "qa-section",
+  "thank-you"
+]
+
 export default function Home() {
-  const [activeSection, setActiveSection] = useState<Section>("overview")
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentSubsection, setCurrentSubsection] = useState(0)
+  const activeSection = SECTIONS[currentIndex]
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  const subsectionCount = SUBSECTIONS[activeSection]?.length ?? 1
+
+  const goNextSubsection = () => {
+    if (currentSubsection < subsectionCount - 1) {
+      setCurrentSubsection(currentSubsection + 1)
+    } else if (currentIndex < SECTIONS.length - 1) {
+      // Move to next section
+      setCurrentIndex(currentIndex + 1)
+      setCurrentSubsection(0)
+    }
+  }
+
+  const goPreviousSubsection = () => {
+    if (currentSubsection > 0) {
+      setCurrentSubsection(currentSubsection - 1)
+    } else if (currentIndex > 0) {
+      // Move to previous section
+      setCurrentIndex(currentIndex - 1)
+      const prevSection = SECTIONS[currentIndex - 1]
+      setCurrentSubsection((SUBSECTIONS[prevSection]?.length ?? 1) - 1)
+    }
+  }
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        e.preventDefault()
+        goNextSubsection()
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault()
+        goPreviousSubsection()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [currentIndex, currentSubsection, activeSection, subsectionCount])
+
+  // Auto-scroll to current subsection when it changes
+  useEffect(() => {
+    setTimeout(() => {
+      const subsectionId = getSubsectionId(activeSection, currentSubsection)
+      const element = document.getElementById(subsectionId)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" })
+      }
+    }, 100)
+  }, [activeSection, currentSubsection])
 
   // Memoize section rendering to prevent unnecessary re-renders
   const renderSection = useMemo(() => {
@@ -64,13 +134,61 @@ export default function Home() {
   }, [activeSection])
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
-      <main className="flex-1 overflow-auto">
-        <div className="max-w-5xl mx-auto px-6 py-8 lg:px-12 lg:py-12">
-          {renderSection}
+    <div className="flex h-screen bg-background overflow-hidden">
+      <div className="flex flex-col flex-1">
+        <div className="flex flex-1 min-h-0">
+          {/* Sidebar */}
+          <Sidebar activeSection={activeSection} onSectionChange={(section) => {
+            const index = SECTIONS.indexOf(section)
+            if (index !== -1) {
+              setCurrentIndex(index)
+            }
+          }} />
+
+          {/* Main Content */}
+          <main className="flex-1 overflow-auto flex flex-col">
+            <div ref={contentRef} className="flex-1 overflow-y-auto px-6 py-8 lg:px-12 lg:py-8">
+              <div className="max-w-4xl">
+                {renderSection}
+              </div>
+            </div>
+          </main>
         </div>
-      </main>
+
+        {/* Navigation Footer - Fixed */}
+        <footer className="border-t border-border bg-background py-3 px-6 flex-shrink-0">
+          <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={goPreviousSubsection}
+              disabled={currentIndex === 0 && currentSubsection === 0}
+              className="gap-2"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Previous
+            </Button>
+
+            <div className="text-sm text-muted-foreground text-center flex-1">
+              <div className="text-xs">
+                {currentIndex + 1} / {SECTIONS.length} 
+                {subsectionCount > 1 && ` • ${currentSubsection + 1} / ${subsectionCount}`}
+              </div>
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={goNextSubsection}
+              disabled={currentIndex === SECTIONS.length - 1 && currentSubsection === subsectionCount - 1}
+              className="gap-2"
+            >
+              Next
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+          </div>
+        </footer>
+      </div>
     </div>
   )
 }

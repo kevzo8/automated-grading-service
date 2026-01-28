@@ -267,7 +267,7 @@ export function Playground() {
   }
 
   return (
-    <div className="space-y-8">
+    <div id="playground-overview" className="space-y-8">
       {/* Header */}
       <div className="space-y-4">
         <Badge variant="secondary">Interactive Demo</Badge>
@@ -279,7 +279,7 @@ export function Playground() {
       </div>
 
       {/* Dataset Info Alert */}
-      <Alert>
+      <Alert id="playground-examples">
         <Info className="h-4 w-4" />
         <AlertTitle>Enhanced SciEntsBank Grading</AlertTitle>
         <AlertDescription>
@@ -462,9 +462,10 @@ export function Playground() {
       )}
 
       {/* API Usage Example */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">cURL Example</CardTitle>
+      <div id="playground-curl-example">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">cURL Example</CardTitle>
           <CardDescription>How to call the grading API</CardDescription>
         </CardHeader>
         <CardContent>
@@ -480,6 +481,7 @@ export function Playground() {
           </pre>
         </CardContent>
       </Card>
+      </div>
 
       {/* Note about demo */}
       <Alert>

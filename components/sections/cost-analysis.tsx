@@ -51,7 +51,7 @@ export function CostAnalysis() {
   const scaledTotal = scaledCosts.reduce((sum, item) => sum + item.monthlyCost, 0)
 
   return (
-    <div className="space-y-8">
+    <div id="cost-analysis-overview" className="space-y-8">
       {/* Header */}
       <div className="space-y-4">
         <Badge variant="secondary">Financial Planning</Badge>
@@ -63,7 +63,7 @@ export function CostAnalysis() {
       </div>
 
       {/* Cost Summary Cards */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div id="cost-analysis-summary" className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
@@ -105,9 +105,10 @@ export function CostAnalysis() {
       </div>
 
       {/* MVP Cost Breakdown */}
-      <Card>
-        <CardHeader>
-          <CardTitle>MVP Cost Breakdown (10K/day)</CardTitle>
+      <div id="cost-analysis-mvp-breakdown">
+        <Card>
+          <CardHeader>
+            <CardTitle>MVP Cost Breakdown (10K/day)</CardTitle>
           <CardDescription>Estimated monthly costs for minimum viable deployment</CardDescription>
         </CardHeader>
         <CardContent>
@@ -124,12 +125,14 @@ export function CostAnalysis() {
             Annual estimate: ~${(mvpTotal * 12).toLocaleString()}/year (before Reserved Instance discounts)
           </p>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Why This is Cost-Effective */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Why This Design is Cost-Effective</CardTitle>
+      <div id="cost-analysis-cost-effectiveness">
+        <Card>
+          <CardHeader>
+            <CardTitle>Why This Design is Cost-Effective</CardTitle>
           <CardDescription>Key architectural decisions that optimize total cost of ownership</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -220,12 +223,14 @@ export function CostAnalysis() {
             </div>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Cost Comparison: LLM vs Fine-Tuned */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Alternative: LLM API Costs</CardTitle>
+      <div id="cost-analysis-llm-comparison">
+        <Card>
+          <CardHeader>
+            <CardTitle>Alternative: LLM API Costs</CardTitle>
           <CardDescription>Why fine-tuned DeBERTa is more economical than GPT-4 API calls</CardDescription>
         </CardHeader>
         <CardContent>
@@ -277,12 +282,14 @@ export function CostAnalysis() {
             At scale, self-hosted fine-tuned models provide 5-10x cost savings over commercial APIs.
           </p>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Scaled Deployment */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Scaled Deployment (100K/day)</CardTitle>
+      <div id="cost-analysis-scaled-deployment">
+        <Card>
+          <CardHeader>
+            <CardTitle>Scaled Deployment (100K/day)</CardTitle>
           <CardDescription>Estimated costs when scaling 10x to meet growth targets</CardDescription>
         </CardHeader>
         <CardContent>
@@ -296,9 +303,11 @@ export function CostAnalysis() {
             <span className="text-lg">${scaledTotal.toLocaleString()}/mo</span>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Cost Optimization Roadmap */}
+      <div id="cost-analysis-post-mvp-optimization">
       <Alert>
         <Info className="h-4 w-4" />
         <AlertTitle>Post-MVP Cost Optimization Opportunities</AlertTitle>
@@ -312,6 +321,7 @@ export function CostAnalysis() {
           </ul>
         </AlertDescription>
       </Alert>
+      </div>
     </div>
   )
 }

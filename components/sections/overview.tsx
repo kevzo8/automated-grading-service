@@ -4,7 +4,7 @@ import { CheckCircle, Clock, Target, Zap, Database, Shield } from "lucide-react"
 
 export function Overview() {
   return (
-    <div className="space-y-8">
+    <div id="overview-hero" className="space-y-8">
       {/* Hero Section */}
       <div className="space-y-4">
         <Badge variant="secondary" className="mb-2">MVP Proposal</Badge>
@@ -18,7 +18,7 @@ export function Overview() {
       </div>
 
       {/* Key Requirements Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div id="overview-requirements" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
@@ -66,9 +66,10 @@ export function Overview() {
       </div>
 
       {/* Tech Stack */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Technology Stack</CardTitle>
+      <div id="overview-tech-stack">
+        <Card>
+          <CardHeader>
+            <CardTitle>Technology Stack</CardTitle>
           <CardDescription>Production-grade Python ecosystem on AWS infrastructure</CardDescription>
         </CardHeader>
         <CardContent>
@@ -103,11 +104,13 @@ export function Overview() {
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* Dataset Info */}
-      <Card>
-        <CardHeader>
-          <CardTitle>SciEntsBank Dataset</CardTitle>
+      <div id="overview-dataset">
+        <Card>
+          <CardHeader>
+            <CardTitle>SciEntsBank Dataset</CardTitle>
           <CardDescription>Scientific Entailment Bank for short-answer assessment (Dzikovska et al., 2013)</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -147,49 +150,52 @@ export function Overview() {
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* Stretch Goals */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Future Enhancements (Post-MVP)</CardTitle>
-          <CardDescription>Architecture designed to accommodate these features</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
-              <div>
-                <p className="font-medium">Confidence Scores</p>
-                <p className="text-sm text-muted-foreground">Model prediction probability for each grade</p>
+      <div id="overview-future-enhancements">
+        <Card>
+          <CardHeader>
+            <CardTitle>Future Enhancements (Post-MVP)</CardTitle>
+            <CardDescription>Architecture designed to accommodate these features</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
+                <div>
+                  <p className="font-medium">Confidence Scores</p>
+                  <p className="text-sm text-muted-foreground">Model prediction probability for each grade</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
+                <div>
+                  <p className="font-medium">Justification</p>
+                  <p className="text-sm text-muted-foreground">Explanation of why an answer was marked incorrect</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
+                <div>
+                  <p className="font-medium">Formative Feedback</p>
+                  <p className="text-sm text-muted-foreground">Guidance on how to improve the answer</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
+                <div>
+                  <p className="font-medium">Multi-Domain Support</p>
+                  <p className="text-sm text-muted-foreground">Expand beyond science to other subjects</p>
+                </div>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
-              <div>
-                <p className="font-medium">Justification</p>
-                <p className="text-sm text-muted-foreground">Explanation of why an answer was marked incorrect</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
-              <div>
-                <p className="font-medium">Formative Feedback</p>
-                <p className="text-sm text-muted-foreground">Guidance on how to improve the answer</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
-              <div>
-                <p className="font-medium">Multi-Domain Support</p>
-                <p className="text-sm text-muted-foreground">Expand beyond science to other subjects</p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Key Differentiators */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div id="overview-differentiators" className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 
 export function ThankYou() {
   return (
-    <div className="space-y-8 max-w-3xl mx-auto">
+    <div id="thank-you-closing" className="space-y-8 max-w-3xl mx-auto">
       {/* Decorative Header */}
       <div className="text-center space-y-6 py-8">
         <div className="flex justify-center">
@@ -34,13 +34,14 @@ export function ThankYou() {
       </div>
 
       {/* Why I'm Excited */}
-      <Card>
-        <CardContent className="pt-6">
-          <div className="space-y-4">
-            <h3 className="font-semibold flex items-center gap-2">
-              <Brain className="w-4 h-4 text-primary" />
-              Why This Role Excites Me
-            </h3>
+      <div id="thank-you-why-excited">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="space-y-4">
+              <h3 className="font-semibold flex items-center gap-2">
+                <Brain className="w-4 h-4 text-primary" />
+                Why This Role Excites Me
+              </h3>
             <div className="grid gap-3">
               <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -79,15 +80,17 @@ export function ThankYou() {
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* What I Bring */}
-      <Card>
-        <CardContent className="pt-6">
-          <div className="space-y-4">
-            <h3 className="font-semibold flex items-center gap-2">
-              <Code2 className="w-4 h-4 text-primary" />
-              What I Bring to the Team
-            </h3>
+      <div id="thank-you-what-i-bring">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="space-y-4">
+              <h3 className="font-semibold flex items-center gap-2">
+                <Code2 className="w-4 h-4 text-primary" />
+                What I Bring to the Team
+              </h3>
             <div className="grid gap-2 md:grid-cols-2">
               <div className="p-3 rounded-lg border bg-card">
                 <p className="font-medium text-sm mb-1">Production ML Experience</p>
@@ -117,33 +120,36 @@ export function ThankYou() {
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* Contact Section */}
-      <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
-        <CardContent className="pt-6">
-          <div className="text-center space-y-4">
-            <h3 className="font-semibold text-lg">Let&apos;s Connect</h3>
-            <p className="text-sm text-muted-foreground">
-              I&apos;m looking forward to discussing this opportunity further and learning more about 
-              the exciting projects at Cambridge Assessment.
-            </p>
-            <div className="flex justify-center gap-3 flex-wrap">
-              <Button variant="outline" size="sm" className="gap-2 bg-transparent" asChild>
-                <a href="mailto:kevinguadalupevega@gmail.com">
-                  <Mail className="w-4 h-4" />
-                  Email
-                </a>
-              </Button>
-              <Button variant="outline" size="sm" className="gap-2 bg-transparent" asChild>
-                <a href="https://www.linkedin.com/in/kgvega/" target="_blank" rel="noopener noreferrer">
-                  <Linkedin className="w-4 h-4" />
-                  LinkedIn
-                </a>
-              </Button>
+      <div id="thank-you-contact">
+        <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
+          <CardContent className="pt-6">
+            <div className="text-center space-y-4">
+              <h3 className="font-semibold text-lg">Let&apos;s Connect</h3>
+              <p className="text-sm text-muted-foreground">
+                I&apos;m looking forward to discussing this opportunity further and learning more about 
+                the exciting projects at Cambridge Assessment.
+              </p>
+              <div className="flex justify-center gap-3 flex-wrap">
+                <Button variant="outline" size="sm" className="gap-2 bg-transparent" asChild>
+                  <a href="mailto:kevinguadalupevega@gmail.com">
+                    <Mail className="w-4 h-4" />
+                    Email
+                  </a>
+                </Button>
+                <Button variant="outline" size="sm" className="gap-2 bg-transparent" asChild>
+                  <a href="https://www.linkedin.com/in/kgvega/" target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="w-4 h-4" />
+                    LinkedIn
+                  </a>
+                </Button>
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Closing Quote */}
       <div className="text-center py-8 space-y-4">

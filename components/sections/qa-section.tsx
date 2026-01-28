@@ -9,7 +9,7 @@ export function QASection() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="space-y-4">
+      <div id="qa-section-keys-and-answers" className="space-y-4">
         <Badge variant="secondary">Interview Q&A</Badge>
         <h1 className="text-4xl font-bold tracking-tight">Key Questions & Answers</h1>
         <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
@@ -19,7 +19,8 @@ export function QASection() {
       </div>
 
       {/* Section A: System Architecture & API Design */}
-      <Card>
+      <div id="qa-section-system-architecture">
+        <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-primary/10">
@@ -169,9 +170,11 @@ grading_results (
           </Accordion>
         </CardContent>
       </Card>
+      </div>
 
       {/* Section B: ML Methodology & Operationalization */}
-      <Card>
+      <div id="qa-section-ml-methodology">
+        <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-primary/10">
@@ -344,7 +347,11 @@ criterion = nn.CrossEntropyLoss(weight=torch.tensor(weights))`}
         </CardContent>
       </Card>
 
+      </div>
+
+
       {/* Section C: Deployment & Integration */}
+      <div id="qa-section-deployment-operations">
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
@@ -508,71 +515,133 @@ aws cloudwatch put-metric-alarm \\
           </Accordion>
         </CardContent>
       </Card>
+      </div>
+
+      {/* Section D: Business Context */}
+      <div id="qa-section-business-context">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Brain className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <CardTitle>D. Business & Vision</CardTitle>
+                <CardDescription>Why this matters and where it's headed</CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="vision">
+                <AccordionTrigger className="text-left">
+                  <span className="font-medium">Why is this problem important and what's your vision?</span>
+                </AccordionTrigger>
+                <AccordionContent className="space-y-4 text-sm">
+                  <p className="font-medium">The Problem:</p>
+                  <p className="text-muted-foreground">
+                    Scale is the core challenge in science education. A single teacher can only manually grade so many submissions, 
+                    limiting assessment frequency and feedback quality. AI-powered grading can unlock: instant feedback, fairness 
+                    through consistency, and the ability for teachers to focus on high-value interactions with struggling students.
+                  </p>
+                  <p className="font-medium mt-3">Our Approach:</p>
+                  <p className="text-muted-foreground">
+                    Start with the science domain (SciEntsBank) to prove value and robustness. Build a production-ready system 
+                    that can scale to thousands of simultaneous grading requests. Establish the foundation for multi-domain expansion.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="success">
+                <AccordionTrigger className="text-left">
+                  <span className="font-medium">How do you measure success?</span>
+                </AccordionTrigger>
+                <AccordionContent className="space-y-4 text-sm">
+                  <p className="font-medium">MVP Success Metrics:</p>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                    <li>Macro-F1 ≥ 0.75 on Unseen Answers (UA) test set</li>
+                    <li>P95 latency {"<"} 1 second per request</li>
+                    <li>System reliability: 99.9% uptime</li>
+                    <li>Positive SME validation on prediction quality</li>
+                    <li>Capacity to handle 10K submissions/day</li>
+                  </ul>
+                  <p className="font-medium mt-3">Post-MVP Expansion:</p>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                    <li>Scale to 100K+ submissions/day</li>
+                    <li>Extend to other domains (math, language, history)</li>
+                    <li>Add confidence scores and explanations</li>
+                    <li>Enable teacher-in-the-loop feedback loops</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Evaluation Criteria Summary */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">How This MVP Addresses Evaluation Criteria</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-3 md:grid-cols-2">
-            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
-              <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-medium text-sm">ML + API + Database Integration</p>
-                <p className="text-xs text-muted-foreground">
-                  DeBERTa model connected to FastAPI with PostgreSQL for persistence
-                </p>
+      <Card className="mt-8">
+          <CardHeader>
+            <CardTitle className="text-lg">How This MVP Addresses Evaluation Criteria</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+                <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-sm">ML + API + Database Integration</p>
+                  <p className="text-xs text-muted-foreground">
+                    DeBERTa model connected to FastAPI with PostgreSQL for persistence
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+                <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-sm">Balancing SOTA ML with Production</p>
+                  <p className="text-xs text-muted-foreground">
+                    DeBERTa-v3 over GPT-4: 10x cheaper, meets latency, ~75% F1
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+                <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-sm">Clear API Design</p>
+                  <p className="text-xs text-muted-foreground">
+                    RESTful with Pydantic validation, consistent error handling
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+                <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-sm">Model Selection Justification</p>
+                  <p className="text-xs text-muted-foreground">
+                    Compared DistilBERT, DeBERTa, GPT-4 with clear trade-off analysis
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+                <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-sm">NLP Understanding</p>
+                  <p className="text-xs text-muted-foreground">
+                    Class imbalance handling, appropriate metrics (QWK, macro-F1)
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+                <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-sm">Clear Technical Communication</p>
+                  <p className="text-xs text-muted-foreground">
+                    Architecture diagrams, code samples, decision rationale throughout
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
-              <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-medium text-sm">Balancing SOTA ML with Production</p>
-                <p className="text-xs text-muted-foreground">
-                  DeBERTa-v3 over GPT-4: 10x cheaper, meets latency, ~75% F1
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
-              <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-medium text-sm">Clear API Design</p>
-                <p className="text-xs text-muted-foreground">
-                  RESTful with Pydantic validation, consistent error handling
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
-              <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-medium text-sm">Model Selection Justification</p>
-                <p className="text-xs text-muted-foreground">
-                  Compared DistilBERT, DeBERTa, GPT-4 with clear trade-off analysis
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
-              <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-medium text-sm">NLP Understanding</p>
-                <p className="text-xs text-muted-foreground">
-                  Class imbalance handling, appropriate metrics (QWK, macro-F1)
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
-              <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-medium text-sm">Clear Technical Communication</p>
-                <p className="text-xs text-muted-foreground">
-                  Architecture diagrams, code samples, decision rationale throughout
-                </p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
     </div>
   )
 }

@@ -111,8 +111,12 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
         {/* Header */}
         <div className="p-6 border-b border-sidebar-border">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-sidebar-primary flex items-center justify-center">
-              <span className="text-sidebar-primary-foreground font-bold text-sm">AG</span>
+            <div className="w-8 h-8 rounded-lg bg-sidebar-primary flex items-center justify-center overflow-hidden">
+              <img
+                src="/cambridge_logo.png"
+                alt="Cambridge logo"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
               <h1 className="font-semibold text-sm">AutoGrade</h1>
@@ -143,11 +147,10 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-sidebar-border">
-          <div className="text-xs text-sidebar-foreground/50">
-            <p className="font-medium text-sidebar-foreground/70">by Kevin Vega</p>
+        <div className="py-3 px-4 border-t border-sidebar-border">
+          <div className="text-[11px] leading-tight text-sidebar-foreground/60">
+            <p className="font-medium text-sidebar-foreground/70">Kevin Vega</p>
             <p className="mt-1">Interview Presentation</p>
-            <p>Cambridge University Press & Assessment</p>
           </div>
         </div>
       </aside>

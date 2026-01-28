@@ -220,7 +220,7 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
 }`
 
   return (
-    <div className="space-y-8">
+    <div id="deployment-overview" className="space-y-8">
       {/* Header */}
       <div className="space-y-4">
         <Badge variant="secondary">C. Deployment & Integration</Badge>
@@ -232,9 +232,10 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
       </div>
 
       {/* Testing Strategy */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Testing Strategy</CardTitle>
+      <div id="deployment-testing">
+        <Card>
+          <CardHeader>
+            <CardTitle>Testing Strategy</CardTitle>
           <CardDescription>Comprehensive testing pyramid for ML services</CardDescription>
         </CardHeader>
         <CardContent>
@@ -301,12 +302,14 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
             </TabsContent>
           </Tabs>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Deployment */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Containerized Deployment</CardTitle>
+      <div id="deployment-deployment">
+        <Card>
+          <CardHeader>
+            <CardTitle>Containerized Deployment</CardTitle>
           <CardDescription>Docker-based deployment on AWS ECS Fargate</CardDescription>
         </CardHeader>
         <CardContent>
@@ -332,12 +335,14 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
             </div>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Model Updates & Rollbacks */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Model Updates & Rollbacks</CardTitle>
+      <div id="deployment-model-updates">
+        <Card>
+          <CardHeader>
+            <CardTitle>Model Updates & Rollbacks</CardTitle>
           <CardDescription>Safe deployment of model changes</CardDescription>
         </CardHeader>
         <CardContent>
@@ -390,12 +395,14 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
             </ol>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Observability */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Observability & Monitoring</CardTitle>
+      <div id="deployment-observability">
+        <Card>
+          <CardHeader>
+            <CardTitle>Observability & Monitoring</CardTitle>
           <CardDescription>Detecting issues before user complaints</CardDescription>
         </CardHeader>
         <CardContent>
@@ -412,7 +419,8 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
             </TabsContent>
           </Tabs>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Key Metrics */}
       <Card>
@@ -463,9 +471,10 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
       </Card>
 
       {/* CI/CD Pipeline */}
-      <Card>
-        <CardHeader>
-          <CardTitle>CI/CD Pipeline</CardTitle>
+      <div id="deployment-cicd">
+        <Card>
+          <CardHeader>
+            <CardTitle>CI/CD Pipeline</CardTitle>
           <CardDescription>Automated testing and deployment workflow</CardDescription>
         </CardHeader>
         <CardContent>
@@ -506,7 +515,8 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
             </div>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
     </div>
   )
 }

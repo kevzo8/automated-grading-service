@@ -42,7 +42,7 @@ function TechComparison({ name, pros, cons, selected }: TechComparisonProps) {
 
 export function TechStack() {
   return (
-    <div className="space-y-8">
+    <div id="tech-stack-overview" className="space-y-8">
       {/* Header */}
       <div className="space-y-4">
         <Badge variant="secondary">Technical Decisions</Badge>
@@ -54,6 +54,7 @@ export function TechStack() {
       </div>
 
       {/* Decision Framework */}
+      <div id="tech-stack-decision-framework">
       <Card>
         <CardHeader>
           <CardTitle>Decision Framework</CardTitle>
@@ -92,9 +93,10 @@ export function TechStack() {
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* API Framework */}
-      <div className="space-y-4">
+      <div id="tech-stack-api-framework" className="space-y-4">
         <h2 className="text-2xl font-bold">API Framework</h2>
         <div className="grid gap-4 md:grid-cols-3">
           <TechComparison
@@ -157,7 +159,7 @@ export function TechStack() {
       </div>
 
       {/* ML Framework */}
-      <div className="space-y-4">
+      <div id="tech-stack-ml-framework" className="space-y-4">
         <h2 className="text-2xl font-bold">ML Framework</h2>
         <div className="grid gap-4 md:grid-cols-3">
           <TechComparison
@@ -220,7 +222,7 @@ export function TechStack() {
       </div>
 
       {/* Database */}
-      <div className="space-y-4">
+      <div id="tech-stack-database" className="space-y-4">
         <h2 className="text-2xl font-bold">Database</h2>
         <div className="grid gap-4 md:grid-cols-3">
           <TechComparison
@@ -283,7 +285,7 @@ export function TechStack() {
       </div>
 
       {/* Compute Infrastructure */}
-      <div className="space-y-4">
+      <div id="tech-stack-infrastructure" className="space-y-4">
         <h2 className="text-2xl font-bold">Compute Infrastructure</h2>
         <div className="grid gap-4 md:grid-cols-3">
           <TechComparison
@@ -346,7 +348,7 @@ export function TechStack() {
       </div>
 
       {/* Caching */}
-      <div className="space-y-4">
+      <div id="tech-stack-caching" className="space-y-4">
         <h2 className="text-2xl font-bold">Caching Layer</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <TechComparison
@@ -395,64 +397,66 @@ export function TechStack() {
       </div>
 
       {/* Summary Table */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Technology Summary</CardTitle>
-          <CardDescription>Complete stack overview with alternatives considered</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b">
-                  <th className="text-left py-2 font-medium">Layer</th>
-                  <th className="text-left py-2 font-medium">Selected</th>
-                  <th className="text-left py-2 font-medium">Alternatives Considered</th>
-                  <th className="text-left py-2 font-medium">Key Factor</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
-                <tr>
-                  <td className="py-2 text-muted-foreground">API Framework</td>
-                  <td className="py-2"><Badge>FastAPI</Badge></td>
-                  <td className="py-2 text-muted-foreground">Flask, Django REST</td>
-                  <td className="py-2 text-xs">Async + auto-validation</td>
-                </tr>
-                <tr>
-                  <td className="py-2 text-muted-foreground">ML Framework</td>
-                  <td className="py-2"><Badge>PyTorch + HF</Badge></td>
-                  <td className="py-2 text-muted-foreground">TensorFlow, ONNX</td>
-                  <td className="py-2 text-xs">Ecosystem + flexibility</td>
-                </tr>
-                <tr>
-                  <td className="py-2 text-muted-foreground">Database</td>
-                  <td className="py-2"><Badge>PostgreSQL</Badge></td>
-                  <td className="py-2 text-muted-foreground">MongoDB, DynamoDB</td>
-                  <td className="py-2 text-xs">ACID + JSONB</td>
-                </tr>
-                <tr>
-                  <td className="py-2 text-muted-foreground">Compute</td>
-                  <td className="py-2"><Badge>ECS Fargate</Badge></td>
-                  <td className="py-2 text-muted-foreground">EC2, Lambda</td>
-                  <td className="py-2 text-xs">Ops simplicity + ML support</td>
-                </tr>
-                <tr>
-                  <td className="py-2 text-muted-foreground">Cache</td>
-                  <td className="py-2"><Badge>Redis</Badge></td>
-                  <td className="py-2 text-muted-foreground">Memcached</td>
-                  <td className="py-2 text-xs">Rate limiting + flexibility</td>
-                </tr>
-                <tr>
-                  <td className="py-2 text-muted-foreground">Monitoring</td>
-                  <td className="py-2"><Badge>CloudWatch</Badge></td>
-                  <td className="py-2 text-muted-foreground">Datadog, Prometheus</td>
-                  <td className="py-2 text-xs">AWS-native integration</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
+      <div id="tech-stack-summary">
+        <Card>
+          <CardHeader>
+            <CardTitle>Technology Summary</CardTitle>
+            <CardDescription>Complete stack overview with alternatives considered</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left py-2 font-medium">Layer</th>
+                    <th className="text-left py-2 font-medium">Selected</th>
+                    <th className="text-left py-2 font-medium">Alternatives Considered</th>
+                    <th className="text-left py-2 font-medium">Key Factor</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  <tr>
+                    <td className="py-2 text-muted-foreground">API Framework</td>
+                    <td className="py-2"><Badge>FastAPI</Badge></td>
+                    <td className="py-2 text-muted-foreground">Flask, Django REST</td>
+                    <td className="py-2 text-xs">Async + auto-validation</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 text-muted-foreground">ML Framework</td>
+                    <td className="py-2"><Badge>PyTorch + HF</Badge></td>
+                    <td className="py-2 text-muted-foreground">TensorFlow, ONNX</td>
+                    <td className="py-2 text-xs">Ecosystem + flexibility</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 text-muted-foreground">Database</td>
+                    <td className="py-2"><Badge>PostgreSQL</Badge></td>
+                    <td className="py-2 text-muted-foreground">MongoDB, DynamoDB</td>
+                    <td className="py-2 text-xs">ACID + JSONB</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 text-muted-foreground">Compute</td>
+                    <td className="py-2"><Badge>ECS Fargate</Badge></td>
+                    <td className="py-2 text-muted-foreground">EC2, Lambda</td>
+                    <td className="py-2 text-xs">Ops simplicity + ML support</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 text-muted-foreground">Cache</td>
+                    <td className="py-2"><Badge>Redis</Badge></td>
+                    <td className="py-2 text-muted-foreground">Memcached</td>
+                    <td className="py-2 text-xs">Rate limiting + flexibility</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 text-muted-foreground">Monitoring</td>
+                    <td className="py-2"><Badge>CloudWatch</Badge></td>
+                    <td className="py-2 text-muted-foreground">Datadog, Prometheus</td>
+                    <td className="py-2 text-xs">AWS-native integration</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

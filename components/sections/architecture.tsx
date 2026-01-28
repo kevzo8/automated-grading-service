@@ -4,7 +4,7 @@ import { ArchitectureDiagram } from "@/components/architecture-diagram"
 
 export function Architecture() {
   return (
-    <div className="space-y-8">
+    <div id="architecture-overview" className="space-y-8">
       {/* Header */}
       <div className="space-y-4">
         <Badge variant="secondary">A. System Architecture</Badge>
@@ -16,18 +16,20 @@ export function Architecture() {
       </div>
 
       {/* Architecture Diagram */}
-      <Card>
-        <CardHeader>
-          <CardTitle>System Architecture Diagram</CardTitle>
-          <CardDescription>Request flow from client to response with all infrastructure components</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ArchitectureDiagram />
-        </CardContent>
-      </Card>
+      <div id="architecture-diagram">
+        <Card>
+          <CardHeader>
+            <CardTitle>System Architecture Diagram</CardTitle>
+            <CardDescription>Request flow from client to response with all infrastructure components</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ArchitectureDiagram />
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Component Breakdown */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div id="architecture-components" className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle className="text-base">API Gateway + ALB</CardTitle>
@@ -134,9 +136,10 @@ export function Architecture() {
       </div>
 
       {/* High Availability Strategy */}
-      <Card>
-        <CardHeader>
-          <CardTitle>High Availability & Fault Tolerance</CardTitle>
+      <div id="architecture-high-availability">
+        <Card>
+          <CardHeader>
+            <CardTitle>High Availability & Fault Tolerance</CardTitle>
           <CardDescription>Design decisions ensuring service reliability</CardDescription>
         </CardHeader>
         <CardContent>
@@ -164,12 +167,14 @@ export function Architecture() {
             </div>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Scaling Strategy */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Scaling Strategy</CardTitle>
+      <div id="architecture-scaling">
+        <Card>
+          <CardHeader>
+            <CardTitle>Scaling Strategy</CardTitle>
           <CardDescription>From 10K to 100K+ submissions per day</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -201,79 +206,84 @@ export function Architecture() {
             </p>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
 
       {/* Security Architecture */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Security Architecture</CardTitle>
-          <CardDescription>Defense in depth approach</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <div className="p-4 bg-muted rounded-lg">
-              <h4 className="font-medium text-sm">Network</h4>
-              <p className="text-xs text-muted-foreground mt-1">
-                VPC with private subnets for ECS, RDS, Redis. 
-                Only ALB in public subnets.
-              </p>
+      <div id="architecture-security">
+        <Card>
+          <CardHeader>
+            <CardTitle>Security Architecture</CardTitle>
+            <CardDescription>Defense in depth approach</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <div className="p-4 bg-muted rounded-lg">
+                <h4 className="font-medium text-sm">Network</h4>
+                <p className="text-xs text-muted-foreground mt-1">
+                  VPC with private subnets for ECS, RDS, Redis. 
+                  Only ALB in public subnets.
+                </p>
+              </div>
+              <div className="p-4 bg-muted rounded-lg">
+                <h4 className="font-medium text-sm">Encryption</h4>
+                <p className="text-xs text-muted-foreground mt-1">
+                  TLS 1.3 in transit, AES-256 at rest 
+                  for RDS and ElastiCache.
+                </p>
+              </div>
+              <div className="p-4 bg-muted rounded-lg">
+                <h4 className="font-medium text-sm">Secrets</h4>
+                <p className="text-xs text-muted-foreground mt-1">
+                  AWS Secrets Manager for DB credentials 
+                  and API keys. Auto-rotation.
+                </p>
+              </div>
+              <div className="p-4 bg-muted rounded-lg">
+                <h4 className="font-medium text-sm">IAM</h4>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Least-privilege roles for ECS tasks. 
+                  No long-lived credentials.
+                </p>
+              </div>
             </div>
-            <div className="p-4 bg-muted rounded-lg">
-              <h4 className="font-medium text-sm">Encryption</h4>
-              <p className="text-xs text-muted-foreground mt-1">
-                TLS 1.3 in transit, AES-256 at rest 
-                for RDS and ElastiCache.
-              </p>
-            </div>
-            <div className="p-4 bg-muted rounded-lg">
-              <h4 className="font-medium text-sm">Secrets</h4>
-              <p className="text-xs text-muted-foreground mt-1">
-                AWS Secrets Manager for DB credentials 
-                and API keys. Auto-rotation.
-              </p>
-            </div>
-            <div className="p-4 bg-muted rounded-lg">
-              <h4 className="font-medium text-sm">IAM</h4>
-              <p className="text-xs text-muted-foreground mt-1">
-                Least-privilege roles for ECS tasks. 
-                No long-lived credentials.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Cost Estimation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Estimated Monthly Cost (MVP)</CardTitle>
-          <CardDescription>AWS pricing for production workload</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-              <span className="text-sm">ECS Fargate (2 tasks, 2vCPU/4GB)</span>
-              <span className="font-medium">~$150</span>
+      <div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Estimated Monthly Cost (MVP)</CardTitle>
+            <CardDescription>AWS pricing for production workload</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                <span className="text-sm">ECS Fargate (2 tasks, 2vCPU/4GB)</span>
+                <span className="font-medium">~$150</span>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                <span className="text-sm">RDS PostgreSQL (db.r6g.large, Multi-AZ)</span>
+                <span className="font-medium">~$350</span>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                <span className="text-sm">ElastiCache Redis (cache.r6g.large)</span>
+                <span className="font-medium">~$200</span>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                <span className="text-sm">ALB, CloudWatch, Data Transfer</span>
+                <span className="font-medium">~$100</span>
+              </div>
+              <div className="flex justify-between items-center p-3 border-t-2 border-accent pt-4">
+                <span className="font-medium">Estimated Total</span>
+                <span className="font-bold text-lg">~$800/month</span>
+              </div>
             </div>
-            <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-              <span className="text-sm">RDS PostgreSQL (db.r6g.large, Multi-AZ)</span>
-              <span className="font-medium">~$350</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-              <span className="text-sm">ElastiCache Redis (cache.r6g.large)</span>
-              <span className="font-medium">~$200</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-              <span className="text-sm">ALB, CloudWatch, Data Transfer</span>
-              <span className="font-medium">~$100</span>
-            </div>
-            <div className="flex justify-between items-center p-3 border-t-2 border-accent pt-4">
-              <span className="font-medium">Estimated Total</span>
-              <span className="font-bold text-lg">~$800/month</span>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }
