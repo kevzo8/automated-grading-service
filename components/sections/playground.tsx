@@ -54,8 +54,9 @@ const EXAMPLE_INPUTS = [
   }
 ]
 
-// Simulated semantic similarity using keyword matching and structure
-// In production, this would be a transformer model (DeBERTa-v3)
+// Improved semantic similarity for SciEntsBank-style grading
+// In production, this would be a fine-tuned transformer model (DeBERTa-v3)
+// This heuristic better captures the nuances of the UA (Unseen Answers) task
 function computeSemanticSimilarity(student: string, reference: string, question: string): {
   grade: "correct" | "partially_correct" | "incorrect",
   similarity: number
@@ -83,38 +84,98 @@ function computeSemanticSimilarity(student: string, reference: string, question:
   const studentKeywords = extractKeywords(studentLower)
   const questionKeywords = new Set(extractKeywords(questionLower))
   
-  // Count matches with reference (excluding question words to focus on answer content)
-  const answerKeywords = studentKeywords.filter(w => !questionKeywords.has(w))
+  // Key concepts from reference (excluding question words)
   const refOnlyKeywords = [...refKeywords].filter(w => !questionKeywords.has(w))
+  const studentOnlyKeywords = studentKeywords.filter(w => !questionKeywords.has(w))
   
-  const matchCount = answerKeywords.filter(w => refKeywords.has(w)).length
+  // Calculate various similarity metrics
+  const exactMatches = studentOnlyKeywords.filter(w => refKeywords.has(w)).length
   const totalRefWords = refOnlyKeywords.length || 1
-  const coverage = matchCount / totalRefWords
+  const coverage = exactMatches / totalRefWords
   
-  // Check for incorrect/contradictory indicators
-  const incorrectPatterns = [
-    /closer.*sun/,
-    /farther.*sun/,
-    /distance.*sun/,
-    /orbit.*closer/
+  // Check for synonym/paraphrase matching (common in SciEntsBank)
+  const synonymPairs: Record<string, string[]> = {
+    'electricity': ['electrical', 'electric', 'power', 'current', 'energy'],
+    'rotate': ['rotation', 'spin', 'turn', 'revolve'],
+    'tilt': ['tilted', 'angle', 'inclined', 'axis'],
+    'sunlight': ['sun', 'solar', 'light', 'rays'],
+    'photosynthesis': ['photosynthesize', 'produce', 'make', 'food'],
+    'glucose': ['sugar', 'food', 'energy'],
+    'generator': ['generate', 'produced', 'made', 'created'],
+    'transferred': ['transfer', 'flow', 'move', 'travel'],
+    'seasons': ['season', 'summer', 'winter', 'spring', 'fall'],
+    'orbit': ['orbital', 'revolve', 'revolution']
+  }
+  
+  let semanticMatches = exactMatches
+  for (const [key, synonyms] of Object.entries(synonymPairs)) {
+    const hasRefConcept = refLower.includes(key) || synonyms.some(s => refLower.includes(s))
+    const hasStudentConcept = studentLower.includes(key) || synonyms.some(s => studentLower.includes(s))
+    if (hasRefConcept && hasStudentConcept && !refKeywords.has(key)) {
+      semanticMatches += 0.5
+    }
+  }
+  
+  const semanticCoverage = semanticMatches / totalRefWords
+  
+  // Detect common misconceptions (important for SciEntsBank science questions)
+  const misconceptions = [
+    { pattern: /(closer|nearer|farther|further|distance).{0,30}(sun|earth)/i, weight: -2 },
+    { pattern: /hot.{0,20}summer/i, weight: -1 },
+    { pattern: /oxygen.{0,20}photosynthesis.{0,20}plant.{0,20}need/i, weight: -1.5 }
   ]
   
-  const hasIncorrectConcept = incorrectPatterns.some(p => p.test(studentLower))
+  let misconceptionPenalty = 0
+  for (const { pattern, weight } of misconceptions) {
+    if (pattern.test(student)) {
+      // Check if reference also has this (might not be a misconception)
+      if (!pattern.test(reference)) {
+        misconceptionPenalty += Math.abs(weight)
+      }
+    }
+  }
   
-  // Check for off-topic/irrelevant response
-  const studentHasRelevance = answerKeywords.some(w => 
-    refKeywords.has(w) || questionKeywords.has(w)
+  // Check causal/mechanistic understanding (key for science answers)
+  const hasCausalStructure = /because|cause|due to|result|therefore|thus|so|leads to|creates|produces/i.test(studentLower)
+  const refHasCausalStructure = /because|cause|due to|result|therefore|thus|so|leads to|creates|produces/i.test(refLower)
+  const causalBonus = (hasCausalStructure && refHasCausalStructure) ? 0.1 : 0
+  
+  // Check for key scientific terms being present
+  const scientificTerms = refOnlyKeywords.filter(w => 
+    w.length > 5 && /^[a-z]+$/.test(w) // longer single words (often domain terms)
+  )
+  const scientificTermMatches = scientificTerms.filter(term => 
+    studentLower.includes(term) || studentKeywords.includes(term)
+  ).length
+  const scientificCoverage = scientificTerms.length > 0 
+    ? scientificTermMatches / scientificTerms.length 
+    : 0
+  
+  // Overall relevance check
+  const hasRelevance = studentOnlyKeywords.length > 0 && (
+    studentOnlyKeywords.some(w => refKeywords.has(w)) ||
+    semanticCoverage > 0
   )
   
-  // Determine grade based on coverage and relevance
-  if (hasIncorrectConcept) {
-    return { grade: "incorrect", similarity: coverage }
-  } else if (coverage >= 0.4 && studentHasRelevance) {
-    return { grade: "correct", similarity: coverage }
-  } else if (coverage >= 0.15 && studentHasRelevance) {
-    return { grade: "partially_correct", similarity: coverage }
+  // Calculate final score with adjustments
+  let finalScore = (semanticCoverage * 0.5) + (scientificCoverage * 0.3) + (coverage * 0.2) + causalBonus
+  finalScore = Math.max(0, finalScore - (misconceptionPenalty * 0.2))
+  
+  // Determine grade based on rubric aligned with SciEntsBank
+  // Correct: Captures all key concepts, semantically equivalent
+  // Partially Correct: Has some concepts but missing critical elements
+  // Incorrect: Wrong, irrelevant, or contradicts reference
+  
+  if (misconceptionPenalty > 1.5) {
+    return { grade: "incorrect", similarity: finalScore }
+  } else if (finalScore >= 0.55 && hasRelevance && coverage >= 0.3) {
+    return { grade: "correct", similarity: finalScore }
+  } else if (finalScore >= 0.25 && hasRelevance && coverage >= 0.1) {
+    return { grade: "partially_correct", similarity: finalScore }
+  } else if (hasRelevance && coverage >= 0.15) {
+    return { grade: "partially_correct", similarity: finalScore }
   } else {
-    return { grade: "incorrect", similarity: coverage }
+    return { grade: "incorrect", similarity: finalScore }
   }
 }
 
@@ -212,19 +273,18 @@ export function Playground() {
         <Badge variant="secondary">Interactive Demo</Badge>
         <h1 className="text-4xl font-bold tracking-tight">API Playground</h1>
         <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-          Test the grading API with examples based on SciEntsBank patterns. 
-          This demonstrates the request/response flow using the 3-way classification scheme.
+          Test the grading API with examples from the SciEntsBank dataset. 
+          This demonstrates the Unseen Answers (UA) task using 3-way classification with improved semantic understanding.
         </p>
       </div>
 
       {/* Dataset Info Alert */}
       <Alert>
         <Info className="h-4 w-4" />
-        <AlertTitle>3-Way Classification Labels</AlertTitle>
+        <AlertTitle>Enhanced SciEntsBank Grading</AlertTitle>
         <AlertDescription>
-          <span className="font-medium">Correct</span> = semantically equivalent to reference | 
-          <span className="font-medium"> Partially Correct</span> = contains some correct elements but incomplete | 
-          <span className="font-medium"> Incorrect</span> = wrong, irrelevant, or contradictory
+          This demo uses an improved algorithm that handles paraphrasing, scientific terminology, causal reasoning, and common misconceptions.
+          Production model would use fine-tuned DeBERTa-v3-base for higher accuracy on novel student expressions.
         </AlertDescription>
       </Alert>
 
