@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useMemo, useState, useCallback } from "react"
 
 import { cn } from "@/lib/utils"
 import type { Section } from "@/app/page"
@@ -19,7 +19,6 @@ import {
   HelpCircle,
   Heart
 } from "lucide-react"
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 
 interface SidebarProps {
@@ -27,22 +26,60 @@ interface SidebarProps {
   onSectionChange: (section: Section) => void
 }
 
-const navigationItems: { id: Section; label: string; icon: React.ReactNode }[] = [
-  { id: "overview", label: "Overview", icon: <LayoutDashboard className="w-4 h-4" /> },
-  { id: "api-design", label: "API Design", icon: <FileJson className="w-4 h-4" /> },
-  { id: "architecture", label: "Architecture", icon: <Network className="w-4 h-4" /> },
-  { id: "ml-methodology", label: "ML Methodology", icon: <Brain className="w-4 h-4" /> },
-  { id: "tech-stack", label: "Tech Stack", icon: <Layers className="w-4 h-4" /> },
-  { id: "cost-analysis", label: "Cost Analysis", icon: <DollarSign className="w-4 h-4" /> },
-  { id: "deployment", label: "Deployment", icon: <Rocket className="w-4 h-4" /> },
-  { id: "timeline", label: "6-Month Timeline", icon: <Calendar className="w-4 h-4" /> },
-  { id: "playground", label: "API Playground", icon: <PlayCircle className="w-4 h-4" /> },
-  { id: "qa-section", label: "Q&A", icon: <HelpCircle className="w-4 h-4" /> },
-  { id: "thank-you", label: "Thank You", icon: <Heart className="w-4 h-4" /> },
+// Define navigation items outside component to prevent recreation
+const NAVIGATION_ITEMS: { id: Section; label: string; iconName: string }[] = [
+  { id: "overview", label: "Overview", iconName: "dashboard" },
+  { id: "api-design", label: "API Design", iconName: "json" },
+  { id: "architecture", label: "Architecture", iconName: "network" },
+  { id: "ml-methodology", label: "ML Methodology", iconName: "brain" },
+  { id: "tech-stack", label: "Tech Stack", iconName: "layers" },
+  { id: "cost-analysis", label: "Cost Analysis", iconName: "dollar" },
+  { id: "deployment", label: "Deployment", iconName: "rocket" },
+  { id: "timeline", label: "6-Month Timeline", iconName: "calendar" },
+  { id: "playground", label: "API Playground", iconName: "play" },
+  { id: "qa-section", label: "Q&A", iconName: "help" },
+  { id: "thank-you", label: "Thank You", iconName: "heart" },
 ]
+
+const iconMap: Record<string, React.ReactNode> = {
+  dashboard: <LayoutDashboard className="w-4 h-4" />,
+  json: <FileJson className="w-4 h-4" />,
+  network: <Network className="w-4 h-4" />,
+  brain: <Brain className="w-4 h-4" />,
+  layers: <Layers className="w-4 h-4" />,
+  dollar: <DollarSign className="w-4 h-4" />,
+  rocket: <Rocket className="w-4 h-4" />,
+  calendar: <Calendar className="w-4 h-4" />,
+  play: <PlayCircle className="w-4 h-4" />,
+  help: <HelpCircle className="w-4 h-4" />,
+  heart: <Heart className="w-4 h-4" />,
+}
 
 export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  // Memoize navigation items with icons
+  const navigationItems = useMemo(() => 
+    NAVIGATION_ITEMS.map(item => ({
+      ...item,
+      icon: iconMap[item.iconName]
+    })),
+    []
+  )
+
+  // Memoize callbacks
+  const handleSectionChange = useCallback((section: Section) => {
+    onSectionChange(section)
+    setMobileOpen(false)
+  }, [onSectionChange])
+
+  const toggleMobile = useCallback(() => {
+    setMobileOpen(prev => !prev)
+  }, [])
+
+  const closeMobile = useCallback(() => {
+    setMobileOpen(false)
+  }, [])
 
   return (
     <>
@@ -51,7 +88,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
         variant="ghost"
         size="icon"
         className="fixed top-4 left-4 z-50 lg:hidden"
-        onClick={() => setMobileOpen(!mobileOpen)}
+        onClick={toggleMobile}
       >
         {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </Button>
@@ -60,7 +97,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
       {mobileOpen && (
         <div 
           className="fixed inset-0 bg-black/50 z-30 lg:hidden"
-          onClick={() => setMobileOpen(false)}
+          onClick={closeMobile}
         />
       )}
 
@@ -90,10 +127,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
             {navigationItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => {
-                  onSectionChange(item.id)
-                  setMobileOpen(false)
-                }}
+                onClick={() => handleSectionChange(item.id)}
                 className={cn(
                   "w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
                   activeSection === item.id

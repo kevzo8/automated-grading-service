@@ -1,18 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
+import dynamic from "next/dynamic"
 import { Sidebar } from "@/components/sidebar"
-import { Overview } from "@/components/sections/overview"
-import { APIDesign } from "@/components/sections/api-design"
-import { Architecture } from "@/components/sections/architecture"
-import { MLMethodology } from "@/components/sections/ml-methodology"
-import { Deployment } from "@/components/sections/deployment"
-import { Playground } from "@/components/sections/playground"
-import { Timeline } from "@/components/sections/timeline"
-import { TechStack } from "@/components/sections/tech-stack"
-import { CostAnalysis } from "@/components/sections/cost-analysis"
-import { QASection } from "@/components/sections/qa-section"
-import { ThankYou } from "@/components/sections/thank-you"
+
+// Dynamic imports for code splitting - components load only when needed
+const Overview = dynamic(() => import("@/components/sections/overview").then(mod => ({ default: mod.Overview })), { ssr: true })
+const APIDesign = dynamic(() => import("@/components/sections/api-design").then(mod => ({ default: mod.APIDesign })), { ssr: true })
+const Architecture = dynamic(() => import("@/components/sections/architecture").then(mod => ({ default: mod.Architecture })), { ssr: true })
+const MLMethodology = dynamic(() => import("@/components/sections/ml-methodology").then(mod => ({ default: mod.MLMethodology })), { ssr: true })
+const Deployment = dynamic(() => import("@/components/sections/deployment").then(mod => ({ default: mod.Deployment })), { ssr: true })
+const Playground = dynamic(() => import("@/components/sections/playground").then(mod => ({ default: mod.Playground })), { ssr: true })
+const Timeline = dynamic(() => import("@/components/sections/timeline").then(mod => ({ default: mod.Timeline })), { ssr: true })
+const TechStack = dynamic(() => import("@/components/sections/tech-stack").then(mod => ({ default: mod.TechStack })), { ssr: true })
+const CostAnalysis = dynamic(() => import("@/components/sections/cost-analysis").then(mod => ({ default: mod.CostAnalysis })), { ssr: true })
+const QASection = dynamic(() => import("@/components/sections/qa-section").then(mod => ({ default: mod.QASection })), { ssr: true })
+const ThankYou = dynamic(() => import("@/components/sections/thank-you").then(mod => ({ default: mod.ThankYou })), { ssr: true })
 
 export type Section = 
   | "overview" 
@@ -30,7 +33,8 @@ export type Section =
 export default function Home() {
   const [activeSection, setActiveSection] = useState<Section>("overview")
 
-  const renderSection = () => {
+  // Memoize section rendering to prevent unnecessary re-renders
+  const renderSection = useMemo(() => {
     switch (activeSection) {
       case "overview":
         return <Overview />
@@ -57,14 +61,14 @@ export default function Home() {
       default:
         return <Overview />
     }
-  }
+  }, [activeSection])
 
   return (
     <div className="flex min-h-screen bg-background">
       <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
       <main className="flex-1 overflow-auto">
         <div className="max-w-5xl mx-auto px-6 py-8 lg:px-12 lg:py-12">
-          {renderSection()}
+          {renderSection}
         </div>
       </main>
     </div>

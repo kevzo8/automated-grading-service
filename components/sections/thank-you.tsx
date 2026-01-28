@@ -139,6 +139,7 @@ export function ThankYou() {
                   <Linkedin className="w-4 h-4" />
                   LinkedIn
                 </a>
+              </Button>
             </div>
           </div>
         </CardContent>
