@@ -110,9 +110,9 @@ def adjacent_agreement(y_true, y_pred):
 
   // Auto-switch data strategy tabs based on current subsection
   useEffect(() => {
-    if (currentSubsection === "ml-methodology-data-processing-processing") setActiveDataTab("processing")
-    else if (currentSubsection === "ml-methodology-data-processing-imbalance") setActiveDataTab("imbalance")
-    else if (currentSubsection === "ml-methodology-data-processing-augmentation") setActiveDataTab("augmentation")
+    if (currentSubsection === "ml-methodology-data-processing") setActiveDataTab("processing")
+    else if (currentSubsection === "ml-methodology-class-imbalance") setActiveDataTab("imbalance")
+    else if (currentSubsection === "ml-methodology-augmentation") setActiveDataTab("augmentation")
   }, [currentSubsection])
 
   return (
@@ -144,7 +144,7 @@ def adjacent_agreement(y_true, y_pred):
               </div>
               <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
                 <li>SOTA on NLU benchmarks</li>
-                <li>~100ms inference (P95)</li>
+                <li>~250-300ms inference P95 (CPU)</li>
                 <li>86M parameters</li>
                 <li>Disentangled attention mechanism</li>
               </ul>
@@ -192,11 +192,11 @@ def adjacent_agreement(y_true, y_pred):
               <div className="space-y-2">
                 <p className="flex items-start gap-2">
                   <Clock className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                  <span><strong>Latency Profile:</strong> 80-120ms P95 on CPU, easily under 1s target with batching.</span>
+                  <span><strong>Latency Profile:</strong> 250-300ms P95 on CPU (within &lt;1s target). For sub-100ms, deploy on GPU (T4, adds ~$200/month).</span>
                 </p>
                 <p className="flex items-start gap-2">
                   <Clock className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                  <span><strong>Fine-tuning Efficiency:</strong> Converges quickly on SciEntsBank dataset (5-10 epochs).</span>
+                  <span><strong>Fine-tuning Efficiency:</strong> Converges in 5-10 epochs on SciEntsBank (~4-6 hours training on GPU).</span>
                 </p>
               </div>
             </div>
@@ -206,9 +206,9 @@ def adjacent_agreement(y_true, y_pred):
       </div>
 
       {/* Data Processing */}
-      <div id="ml-methodology-data-processing-processing"></div>
-      <div id="ml-methodology-data-processing-imbalance"></div>
-      <div id="ml-methodology-data-processing-augmentation"></div>
+      <div id="ml-methodology-data-processing"></div>
+      <div id="ml-methodology-class-imbalance"></div>
+      <div id="ml-methodology-augmentation"></div>
       <div id="ml-methodology-data-processing">
         <Card>
           <CardHeader>

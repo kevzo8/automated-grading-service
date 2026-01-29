@@ -278,13 +278,14 @@ export function Playground() {
         </p>
       </div>
 
-      {/* Dataset Info Alert */}
-      <Alert id="playground-examples">
-        <Info className="h-4 w-4" />
-        <AlertTitle>Enhanced SciEntsBank Grading</AlertTitle>
+      {/* Heuristic Disclaimer */}
+      <Alert id="playground-examples" className="border-yellow-600/50 bg-yellow-500/10">
+        <AlertTriangle className="h-4 w-4 text-yellow-600" />
+        <AlertTitle>Demo Heuristic - Not Actual Model</AlertTitle>
         <AlertDescription>
-          This demo uses an improved algorithm that handles paraphrasing, scientific terminology, causal reasoning, and common misconceptions.
-          Production model would use fine-tuned DeBERTa-v3-base for higher accuracy on novel student expressions.
+          This playground uses keyword matching + semantic similarity heuristics for demonstration only.
+          Production will use fine-tuned DeBERTa-v3-base (78-82% F1 expected). Real model understands:
+          semantic paraphrasing, implicit relationships, misconceptions. Heuristic may differ from actual predictions.
         </AlertDescription>
       </Alert>
 

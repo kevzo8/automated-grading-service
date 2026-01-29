@@ -21,12 +21,12 @@ export function APIDesign({ currentSubsection }: { currentSubsection: string }) 
 
   const responseSchema = `{
   "request_id": "req_7f3a2b1c",
-  "grade": "correct",
-  "label_id": 2,                    // 0=incorrect, 1=partial, 2=correct
-  "processed_at": "2026-01-28T14:30:00Z",
+  "grade": "correct",               // One of: "correct", "partially_correct", "incorrect"
+  "processed_at": "2026-01-28T14:30:00Z",  // ISO 8601 UTC
   "model_version": "v1.2.0",
+  "processing_time_ms": 245,        // Important for latency monitoring
   
-  // Post-MVP fields (null in MVP)
+  // Post-MVP fields (will be added in v2)
   "confidence": null,               // Future: 0.0-1.0 probability
   "justification": null,            // Future: explanation text
   "feedback": null                  // Future: formative feedback
@@ -180,14 +180,14 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
                   </div>
                   <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
                     <div className="flex-1">
-                      <div className="font-mono text-sm font-semibold">label_id</div>
-                      <div className="text-xs text-muted-foreground">integer • 0 | 1 | 2</div>
+                      <div className="font-mono text-sm font-semibold">processed_at</div>
+                      <div className="text-xs text-muted-foreground">string • ISO 8601 UTC timestamp</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
                     <div className="flex-1">
-                      <div className="font-mono text-sm font-semibold">processed_at</div>
-                      <div className="text-xs text-muted-foreground">string • ISO 8601 timestamp</div>
+                      <div className="font-mono text-sm font-semibold">processing_time_ms</div>
+                      <div className="text-xs text-muted-foreground">integer • latency in milliseconds</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
@@ -339,22 +339,54 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
       <Card>
         <CardHeader>
           <CardTitle>Rate Limiting</CardTitle>
-          <CardDescription>Protecting service availability and ensuring fair usage</CardDescription>
+          <CardDescription>Tiered rate limits protecting service availability while accommodating growth</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
           <CodeBlock code={rateLimitHeaders} language="bash" />
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="text-center p-4 bg-muted rounded-lg">
-              <p className="text-2xl font-bold">1,000</p>
-              <p className="text-sm text-muted-foreground">Requests/hour default</p>
+          
+          <div className="space-y-4">
+            <h4 className="font-medium text-sm">Rate Limit Tiers</h4>
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="p-4 border rounded-lg space-y-2">
+                <p className="font-medium text-sm">Free Tier</p>
+                <div className="text-2xl font-bold text-primary">100</div>
+                <p className="text-xs text-muted-foreground">requests/hour</p>
+                <p className="text-xs text-muted-foreground mt-2">Evaluation & testing</p>
+              </div>
+              <div className="p-4 border rounded-lg space-y-2">
+                <p className="font-medium text-sm">Pro Tier</p>
+                <div className="text-2xl font-bold text-accent">10,000</div>
+                <p className="text-xs text-muted-foreground">requests/hour</p>
+                <p className="text-xs text-muted-foreground mt-2">Production deployments</p>
+              </div>
+              <div className="p-4 border rounded-lg space-y-2">
+                <p className="font-medium text-sm">Enterprise Tier</p>
+                <div className="text-2xl font-bold text-chart-1">Custom</div>
+                <p className="text-xs text-muted-foreground">requests/hour</p>
+                <p className="text-xs text-muted-foreground mt-2">SLA guaranteed limits</p>
+              </div>
             </div>
-            <div className="text-center p-4 bg-muted rounded-lg">
-              <p className="text-2xl font-bold">10</p>
-              <p className="text-sm text-muted-foreground">Concurrent requests</p>
+          </div>
+
+          <div className="space-y-3">
+            <h4 className="font-medium text-sm">Rate Limit Response</h4>
+            <div className="p-4 bg-muted rounded-lg space-y-2">
+              <p className="text-sm"><span className="font-mono font-medium">HTTP 429</span> when limit exceeded</p>
+              <p className="text-xs text-muted-foreground">Response headers indicate remaining quota and reset time</p>
+              <p className="text-xs text-muted-foreground mt-2">Retry-After header specifies seconds until reset</p>
             </div>
-            <div className="text-center p-4 bg-muted rounded-lg">
-              <p className="text-2xl font-bold">Redis</p>
-              <p className="text-sm text-muted-foreground">Token bucket implementation</p>
+          </div>
+
+          <div className="space-y-3">
+            <h4 className="font-medium text-sm">Implementation</h4>
+            <div className="p-4 bg-muted rounded-lg space-y-2">
+              <p className="text-sm font-medium">Token Bucket Algorithm via ElastiCache Redis</p>
+              <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
+                <li>Per API key token tracking in Redis</li>
+                <li>Tokens refill at rate limit frequency</li>
+                <li>10 concurrent requests allowed per key</li>
+                <li>Sliding window prevents burst exploitation</li>
+              </ul>
             </div>
           </div>
         </CardContent>
@@ -444,7 +476,7 @@ CREATE TABLE grading_submissions (
           />
           
           {/* Visual Database Schema */}
-          <div className="mt-6 p-4 border rounded-lg bg-muted/30">
+          <div id="api-design-entity-relationship" className="mt-6 p-4 border rounded-lg bg-muted/30">
             <h4 className="font-medium text-sm mb-4">Entity Relationship Diagram</h4>
             <div className="grid gap-4 md:grid-cols-2">
               {/* grading_submissions table */}

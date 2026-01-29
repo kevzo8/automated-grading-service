@@ -23,7 +23,7 @@ const milestones: Milestone[] = [
       "Label mapping and class balancing strategy",
       "Initial model training experiments"
     ],
-    status: "completed"
+    status: "in-progress"
   },
   {
     month: "Month 2",
@@ -33,10 +33,10 @@ const milestones: Milestone[] = [
       "DeBERTa-v3 fine-tuning on SciEntsBank",
       "Hyperparameter optimization",
       "Cross-validation and UA/UQ/UD evaluation",
-      "Baseline metrics established",
+      "Baseline metrics established (target 78-82% F1)",
       "Error analysis and iteration"
     ],
-    status: "completed"
+    status: "upcoming"
   },
   {
     month: "Month 3",
@@ -46,10 +46,10 @@ const milestones: Milestone[] = [
       "FastAPI application structure",
       "Request/response schemas (Pydantic)",
       "PostgreSQL models (SQLAlchemy)",
-      "Authentication and rate limiting",
+      "Authentication and rate limiting (3 tiers)",
       "Unit and integration tests"
     ],
-    status: "in-progress"
+    status: "upcoming"
   },
   {
     month: "Month 4",
@@ -58,9 +58,9 @@ const milestones: Milestone[] = [
     deliverables: [
       "Model serving integration",
       "End-to-end API testing",
-      "Load testing with Locust",
-      "Performance optimization",
-      "Security review"
+      "Load testing (7 req/sec target)",
+      "Performance optimization (P95 <300ms)",
+      "Security review & GDPR compliance"
     ],
     status: "upcoming"
   },
@@ -125,14 +125,14 @@ export function Timeline() {
           <CardContent>
             <div className="flex items-center gap-2 mb-4">
               <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full" style={{ width: "40%" }}></div>
+                <div className="h-full bg-primary rounded-full" style={{ width: "16.67%" }}></div>
               </div>
-              <span className="text-sm font-medium">40%</span>
+              <span className="text-sm font-medium">16.67%</span>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle className="w-4 h-4 text-accent" />
-                <span>2 phases completed</span>
+                <span>0 phases completed</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Clock className="w-4 h-4 text-primary" />
@@ -140,7 +140,7 @@ export function Timeline() {
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Circle className="w-4 h-4 text-muted-foreground" />
-                <span>3 phases upcoming</span>
+                <span>5 phases upcoming</span>
               </div>
             </div>
           </CardContent>

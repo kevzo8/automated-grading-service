@@ -63,20 +63,32 @@ export function Architecture() {
           <CardContent className="space-y-3">
             <p className="text-sm text-muted-foreground">
               Containerized FastAPI service running on serverless compute. 
-              Auto-scales based on CPU/memory utilization.
+              Auto-scales for burst traffic while maintaining HA with minimum 2 tasks.
             </p>
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Min Tasks</span>
-                <Badge variant="outline">2 (HA)</Badge>
+                <Badge variant="outline">2 (High Availability)</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Max Tasks</span>
-                <Badge variant="outline">10 (scaling)</Badge>
+                <Badge variant="outline">10 (Cost control)</Badge>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">vCPU/Memory</span>
-                <Badge variant="outline">2 vCPU / 4GB</Badge>
+                <span className="text-muted-foreground">Task Size</span>
+                <Badge variant="outline">2 vCPU / 4GB RAM</Badge>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Target CPU</span>
+                <Badge variant="outline">70% utilization</Badge>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Target Memory</span>
+                <Badge variant="outline">80% utilization</Badge>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Scale-down cooldown</span>
+                <Badge variant="outline">5 minutes</Badge>
               </div>
             </div>
           </CardContent>
@@ -88,13 +100,17 @@ export function Architecture() {
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm text-muted-foreground">
-              Multi-AZ deployment for high availability with automated backups 
-              and point-in-time recovery.
+              Production-grade database with Multi-AZ for high availability. 
+              Automated backups with point-in-time recovery.
             </p>
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Instance</span>
-                <Badge variant="outline">db.r6g.large</Badge>
+                <span className="text-muted-foreground">Instance Type</span>
+                <Badge variant="outline">db.t3.large</Badge>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Deployment</span>
+                <Badge variant="outline">Multi-AZ (Standby)</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Storage</span>
@@ -103,6 +119,10 @@ export function Architecture() {
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Backup Retention</span>
                 <Badge variant="outline">7 days</Badge>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Encryption</span>
+                <Badge variant="outline">AES-256 at rest</Badge>
               </div>
             </div>
           </CardContent>
@@ -120,11 +140,11 @@ export function Architecture() {
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Node Type</span>
-                <Badge variant="outline">cache.r6g.large</Badge>
+                <Badge variant="outline">cache.t3.small</Badge>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Replicas</span>
-                <Badge variant="outline">1 read replica</Badge>
+                <span className="text-muted-foreground">Engine</span>
+                <Badge variant="outline">Redis 7.0</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Use Case</span>
@@ -183,9 +203,9 @@ export function Architecture() {
               <h4 className="font-medium text-sm">MVP (10K/day)</h4>
               <ul className="mt-2 text-sm text-muted-foreground space-y-1 list-disc list-inside">
                 <li>2 ECS tasks (minimum for HA)</li>
-                <li>db.r6g.large PostgreSQL</li>
+                <li>db.t3.large PostgreSQL</li>
                 <li>Single Redis node cluster</li>
-                <li>~7 requests/minute average</li>
+                <li>~7 requests/second peak</li>
               </ul>
             </div>
             <div className="p-4 bg-muted rounded-lg">
@@ -251,6 +271,56 @@ export function Architecture() {
         </Card>
       </div>
 
+      {/* Privacy & Compliance */}
+      <div id="architecture-compliance">
+        <Card>
+          <CardHeader>
+            <CardTitle>Student Privacy & Compliance</CardTitle>
+          <CardDescription>GDPR and educational data protection standards</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="p-4 bg-muted rounded-lg space-y-2">
+                <h4 className="font-medium text-sm">Data Handling</h4>
+                <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>Optional student_id (for audit only when provided)</li>
+                  <li>No PII storage (emails, names, phone numbers)</li>
+                  <li>Anonymized submission tracking</li>
+                  <li>JSON metadata for flexible client requirements</li>
+                </ul>
+              </div>
+              <div className="p-4 bg-muted rounded-lg space-y-2">
+                <h4 className="font-medium text-sm">Retention & Deletion</h4>
+                <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>Default retention: 90 days (configurable)</li>
+                  <li>GDPR right to deletion: DELETE endpoint</li>
+                  <li>Data export: GET /submissions/&#123;student_id&#125;</li>
+                  <li>Compliance logging for audit trails</li>
+                </ul>
+              </div>
+              <div className="p-4 bg-muted rounded-lg space-y-2">
+                <h4 className="font-medium text-sm">Encryption</h4>
+                <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>TLS 1.3 in transit (all API calls)</li>
+                  <li>AES-256 at rest (RDS encryption enabled)</li>
+                  <li>Database backups encrypted</li>
+                  <li>No unencrypted logs with student data</li>
+                </ul>
+              </div>
+              <div className="p-4 bg-accent/10 border border-accent/20 rounded-lg space-y-2">
+                <h4 className="font-medium text-sm text-accent">Compliance Status</h4>
+                <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>GDPR ready (data residency, deletion)</li>
+                  <li>FERPA compatible (US education law)</li>
+                  <li>COPPA safe (no child tracking)</li>
+                  <li>Subject to Cambridge privacy policies</li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Cost Estimation */}
       <div>
         <Card>
@@ -265,12 +335,12 @@ export function Architecture() {
                 <span className="font-medium">~$150</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                <span className="text-sm">RDS PostgreSQL (db.r6g.large, Multi-AZ)</span>
-                <span className="font-medium">~$350</span>
+                <span className="text-sm">RDS PostgreSQL (db.t3.large, Multi-AZ)</span>
+                <span className="font-medium">~$280</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                <span className="text-sm">ElastiCache Redis (cache.r6g.large)</span>
-                <span className="font-medium">~$200</span>
+                <span className="text-sm">ElastiCache Redis (cache.t3.small)</span>
+                <span className="font-medium">~$45</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
                 <span className="text-sm">ALB, CloudWatch, Data Transfer</span>

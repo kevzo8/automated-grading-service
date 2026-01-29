@@ -112,44 +112,51 @@ export function Overview() {
           <CardHeader>
             <CardTitle>SciEntsBank Dataset</CardTitle>
           <CardDescription>Scientific Entailment Bank for short-answer assessment (Dzikovska et al., 2013)</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="p-4 bg-muted rounded-lg">
-              <p className="text-sm font-medium text-muted-foreground">Primary Focus</p>
-              <p className="text-lg font-semibold mt-1">Unseen Answers (UA)</p>
-              <p className="text-xs text-muted-foreground mt-1">Novel student expressions for known Q&A pairs</p>
-            </div>
-            <div className="p-4 bg-muted rounded-lg">
-              <p className="text-sm font-medium text-muted-foreground">Input Schema</p>
-              <p className="text-lg font-semibold mt-1">Question + Reference + Student</p>
-              <p className="text-xs text-muted-foreground mt-1">Three-text comparison task</p>
-            </div>
-            <div className="p-4 bg-muted rounded-lg">
-              <p className="text-sm font-medium text-muted-foreground">Classification</p>
-              <p className="text-lg font-semibold mt-1">3-Way Labels</p>
-              <p className="text-xs text-muted-foreground mt-1">Correct / Partially Correct / Incorrect</p>
-            </div>
-          </div>
-          <div className="p-4 bg-secondary/50 rounded-lg border border-secondary">
-            <p className="text-sm font-medium mb-2">Label Definitions (3-way classification)</p>
-            <div className="grid gap-2 md:grid-cols-3 text-xs">
-              <div>
-                <span className="font-medium text-accent">Correct:</span>
-                <span className="text-muted-foreground ml-1">Semantically equivalent to reference answer</span>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="p-4 bg-muted rounded-lg">
+                <p className="text-sm font-medium text-muted-foreground">Primary Focus</p>
+                <p className="text-lg font-semibold mt-1">Unseen Answers (UA)</p>
+                <p className="text-xs text-muted-foreground mt-1">Novel student expressions for known Q&A pairs</p>
               </div>
-              <div>
-                <span className="font-medium text-chart-3">Partially Correct:</span>
-                <span className="text-muted-foreground ml-1">Contains some correct elements but incomplete</span>
+              <div className="p-4 bg-muted rounded-lg">
+                <p className="text-sm font-medium text-muted-foreground">Input Schema</p>
+                <p className="text-lg font-semibold mt-1">Question + Reference + Student</p>
+                <p className="text-xs text-muted-foreground mt-1">Three-text comparison task</p>
               </div>
-              <div>
-                <span className="font-medium text-destructive">Incorrect:</span>
-                <span className="text-muted-foreground ml-1">Wrong, irrelevant, or contradictory response</span>
+              <div className="p-4 bg-muted rounded-lg">
+                <p className="text-sm font-medium text-muted-foreground">Classification</p>
+                <p className="text-lg font-semibold mt-1">3-Way Labels</p>
+                <p className="text-xs text-muted-foreground mt-1">Correct / Partially Correct / Incorrect</p>
               </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+            <div className="p-4 bg-secondary/50 rounded-lg border border-secondary">
+              <p className="text-sm font-medium mb-2">Label Definitions (3-way classification)</p>
+              <div className="grid gap-2 md:grid-cols-3 text-xs">
+                <div>
+                  <span className="font-medium text-accent">Correct:</span>
+                  <span className="text-muted-foreground ml-1">Semantically equivalent to reference answer</span>
+                </div>
+                <div>
+                  <span className="font-medium text-chart-3">Partially Correct:</span>
+                  <span className="text-muted-foreground ml-1">Contains some correct elements but incomplete</span>
+                </div>
+                <div>
+                  <span className="font-medium text-destructive">Incorrect:</span>
+                  <span className="text-muted-foreground ml-1">Wrong, irrelevant, or contradictory response</span>
+                </div>
+              </div>
+            </div>
+            <div className="p-4 bg-accent/10 border border-accent/20 rounded-lg">
+              <p className="text-sm font-medium text-accent mb-2">Licensing & Attribution</p>
+              <p className="text-sm text-muted-foreground">
+                SciEntsBank is available via Hugging Face (nkazi/SciEntsBank) under academic use terms. 
+                Original dataset: Dzikovska et al. (2013). For commercial deployment, licensing agreement with dataset authors/Cambridge University may be required.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Stretch Goals */}

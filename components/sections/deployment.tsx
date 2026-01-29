@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -134,7 +136,9 @@ class GradingUser(HttpUser):
         self.client.get("/health")
 
 # Run: locust -f locustfile.py --host=https://api.autograde.com
-# Target: 100 concurrent users, 10K requests/day = ~7 req/min average`
+# Target simulation: 10K/day traffic = ~7 req/sec peak
+# 100 concurrent users = max burst capacity test
+# Expected P95 latency: <500ms under sustained load`
 
   const monitoringCode = `# CloudWatch Dashboard Configuration (Terraform)
 resource "aws_cloudwatch_dashboard" "autograde" {
@@ -191,8 +195,8 @@ resource "aws_cloudwatch_metric_alarm" "high_latency" {
   namespace           = "AutoGrade"
   period              = 60
   statistic           = "p95"
-  threshold           = 1000  # 1 second P95
-  alarm_description   = "P95 latency exceeds 1 second"
+  threshold           = 500  # 500ms P95 (250-300ms baseline + buffer)
+  alarm_description   = "P95 latency exceeds 500ms"
   alarm_actions       = [aws_sns_topic.alerts.arn]
 }
 
@@ -224,12 +228,12 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
 
   // Auto-switch testing tabs based on current subsection
   useEffect(() => {
-    if (currentSubsection === "deployment-testing-unit") setActiveTestTab("unit")
-    else if (currentSubsection === "deployment-testing-load") setActiveTestTab("load")
-    else if (currentSubsection === "deployment-testing-ml") setActiveTestTab("ml")
+    if (currentSubsection === "deployment-unit-testing") setActiveTestTab("unit")
+    else if (currentSubsection === "deployment-load-testing") setActiveTestTab("load")
+    else if (currentSubsection === "deployment-ml-testing") setActiveTestTab("ml")
     
-    if (currentSubsection === "deployment-observability-dashboard") setActiveMonitorTab("dashboard")
-    else if (currentSubsection === "deployment-observability-alerts") setActiveMonitorTab("alerts")
+    if (currentSubsection === "deployment-dashboard") setActiveMonitorTab("dashboard")
+    else if (currentSubsection === "deployment-alerts") setActiveMonitorTab("alerts")
   }, [currentSubsection])
 
   return (
@@ -245,9 +249,9 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
       </div>
 
       {/* Testing Strategy */}
-      <div id="deployment-testing-unit"></div>
-      <div id="deployment-testing-load"></div>
-      <div id="deployment-testing-ml"></div>
+      <div id="deployment-unit-testing"></div>
+      <div id="deployment-load-testing"></div>
+      <div id="deployment-ml-testing"></div>
       <div id="deployment-testing">
         <Card>
           <CardHeader>
@@ -268,16 +272,17 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
               <CodeBlock code={loadTestCode} language="python" />
               <div className="grid gap-4 md:grid-cols-3">
                 <div className="p-4 bg-muted rounded-lg text-center">
-                  <p className="text-2xl font-bold">100</p>
-                  <p className="text-sm text-muted-foreground">Concurrent Users</p>
+                  <p className="text-2xl font-bold">~7</p>
+                  <p className="text-sm text-muted-foreground">Requests/sec peak</p>
+                  <p className="text-xs text-muted-foreground mt-1">(10K/day target)</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg text-center">
-                  <p className="text-2xl font-bold">{"<"}500ms</p>
-                  <p className="text-sm text-muted-foreground">P95 Target</p>
+                  <p className="text-2xl font-bold">{"<"}300ms</p>
+                  <p className="text-sm text-muted-foreground">P95 Latency</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg text-center">
                   <p className="text-2xl font-bold">{"<"}0.1%</p>
-                  <p className="text-sm text-muted-foreground">Error Rate</p>
+                  <p className="text-sm text-muted-foreground">Error Rate Target</p>
                 </div>
               </div>
             </TabsContent>
@@ -415,8 +420,8 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
       </div>
 
       {/* Observability */}
-      <div id="deployment-observability-dashboard"></div>
-      <div id="deployment-observability-alerts"></div>
+      <div id="deployment-dashboard"></div>
+      <div id="deployment-alerts"></div>
       <div id="deployment-observability">
         <Card>
           <CardHeader>

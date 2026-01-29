@@ -27,23 +27,23 @@ function CostItem({ service, specification, monthlyCost, notes }: CostItemProps)
 
 export function CostAnalysis() {
   const mvpCosts = [
-    { service: "ECS Fargate", specification: "2 tasks x 2vCPU/4GB, 730 hrs", monthlyCost: 180, notes: "Always-on inference" },
-    { service: "RDS PostgreSQL", specification: "db.t3.medium, Multi-AZ, 100GB", monthlyCost: 150, notes: "HA database" },
-    { service: "ElastiCache Redis", specification: "cache.t3.micro, single node", monthlyCost: 25, notes: "Rate limiting + cache" },
-    { service: "Application Load Balancer", specification: "1 ALB + LCUs", monthlyCost: 30, notes: "Traffic routing" },
-    { service: "CloudWatch", specification: "Logs, metrics, alarms", monthlyCost: 40, notes: "Monitoring" },
+    { service: "ECS Fargate", specification: "2 tasks x 2vCPU/4GB, 730 hrs", monthlyCost: 260, notes: "Always-on for HA (not capacity)" },
+    { service: "RDS PostgreSQL", specification: "db.t3.large, Multi-AZ, 100GB gp3", monthlyCost: 280, notes: "Production-grade HA database" },
+    { service: "ElastiCache Redis", specification: "cache.t3.small, single node", monthlyCost: 45, notes: "Rate limiting + caching" },
+    { service: "Application Load Balancer", specification: "1 ALB + LCUs", monthlyCost: 35, notes: "Traffic routing" },
+    { service: "CloudWatch", specification: "Logs, metrics, alarms", monthlyCost: 50, notes: "Monitoring & alerting" },
     { service: "ECR", specification: "5GB storage", monthlyCost: 5, notes: "Container images" },
-    { service: "S3", specification: "Model artifacts, backups", monthlyCost: 10, notes: "Storage" },
+    { service: "S3", specification: "Model artifacts, backups", monthlyCost: 15, notes: "Storage" },
     { service: "Data Transfer", specification: "~50GB outbound", monthlyCost: 5, notes: "API responses" },
   ]
 
   const scaledCosts = [
-    { service: "ECS Fargate", specification: "8 tasks x 4vCPU/8GB, 730 hrs", monthlyCost: 950, notes: "Auto-scaling" },
-    { service: "RDS PostgreSQL", specification: "db.r5.large, Multi-AZ, 500GB", monthlyCost: 450, notes: "Read replicas" },
-    { service: "ElastiCache Redis", specification: "cache.r5.large, 2-node cluster", monthlyCost: 250, notes: "Clustered" },
-    { service: "Application Load Balancer", specification: "1 ALB + increased LCUs", monthlyCost: 80, notes: "Higher traffic" },
-    { service: "CloudWatch", specification: "Extended retention, dashboards", monthlyCost: 100, notes: "Full observability" },
-    { service: "ECR + S3", specification: "Increased storage", monthlyCost: 30, notes: "Artifacts" },
+    { service: "ECS Fargate", specification: "8 tasks x 4vCPU/8GB, 730 hrs", monthlyCost: 1200, notes: "Auto-scaling (cost control)" },
+    { service: "RDS PostgreSQL", specification: "db.r6g.large, Multi-AZ, 500GB gp3", monthlyCost: 580, notes: "Production-grade read replicas" },
+    { service: "ElastiCache Redis", specification: "cache.r6g.large, 2-node cluster", monthlyCost: 380, notes: "Clustered for HA" },
+    { service: "Application Load Balancer", specification: "1 ALB + higher LCUs", monthlyCost: 85, notes: "Higher throughput" },
+    { service: "CloudWatch", specification: "Extended retention, dashboards", monthlyCost: 120, notes: "Full observability" },
+    { service: "ECR + S3", specification: "Increased storage", monthlyCost: 40, notes: "Artifacts & backups" },
     { service: "Data Transfer", specification: "~500GB outbound", monthlyCost: 45, notes: "10x traffic" },
   ]
 

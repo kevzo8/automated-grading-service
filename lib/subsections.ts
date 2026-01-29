@@ -14,12 +14,12 @@ export type SectionKey =
 
 export const SUBSECTIONS: Record<SectionKey, string[]> = {
   "overview": ["hero", "requirements", "tech-stack", "dataset", "future-enhancements"],
-  "api-design": ["overview", "endpoints", "request-schema", "response-schema", "error-handling", "authentication", "rate-limiting", "data-persistence", "database-schema"],
+  "api-design": ["overview", "endpoints", "request-schema", "response-schema", "error-handling", "authentication", "rate-limiting", "data-persistence", "database-schema", "entity-relationship"],
   "architecture": ["overview", "diagram", "components", "high-availability", "scaling", "security"],
-  "ml-methodology": ["overview", "model-selection", "data-processing", "data-processing-processing", "data-processing-imbalance", "data-processing-augmentation", "training", "evaluation", "pre-production-validation", "llm-integration"],
+  "ml-methodology": ["overview", "model-selection", "data-processing", "class-imbalance", "augmentation", "training", "evaluation", "pre-production-validation", "llm-integration"],
   "tech-stack": ["overview", "decision-framework", "api-framework", "ml-framework", "database", "infrastructure", "caching", "summary"],
   "cost-analysis": ["overview", "summary", "mvp-breakdown", "cost-effectiveness", "llm-comparison", "scaled-deployment", "post-mvp-optimization"],
-  "deployment": ["overview", "testing", "testing-unit", "testing-load", "testing-ml", "deployment", "model-updates", "observability", "observability-dashboard", "observability-alerts", "cicd"],
+  "deployment": ["overview", "unit-testing", "load-testing", "ml-testing", "deployment", "model-updates", "dashboard", "alerts", "cicd"],
   "timeline": ["overview", "progress-overview", "month1", "month2", "month3", "month4", "month5", "month6", "risks", "team"],
   "playground": ["overview", "examples", "curl-example"],
   "qa-section": ["keys-and-answers", "system-architecture", "ml-methodology", "deployment-operations", "business-context"],
