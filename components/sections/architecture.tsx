@@ -178,8 +178,8 @@ export function Architecture() {
                 Unhealthy tasks are automatically replaced by ECS.
               </p>
             </div>
-            <div className="space-y-2">
-              <h4 className="font-medium text-sm">Graceful Degradation</h4>
+            <div className="space-y-2 p-3 rounded-lg bg-violet-100/30 dark:bg-violet-900/20">
+              <h4 className="font-medium text-sm text-violet-900 dark:text-violet-200">Graceful Degradation</h4>
               <p className="text-sm text-muted-foreground">
                 If Redis is unavailable, rate limiting falls back to 
                 in-memory per-task limiting with conservative defaults.
