@@ -30,9 +30,9 @@ export function Architecture() {
 
       {/* Component Breakdown */}
       <div id="architecture-components" className="grid gap-4 md:grid-cols-2">
-        <Card>
+        <Card className="border-t-4 border-t-cyan-500">
           <CardHeader>
-            <CardTitle className="text-base">API Gateway + ALB</CardTitle>
+            <CardTitle className="text-base text-cyan-700 dark:text-cyan-400">API Gateway + ALB</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm text-muted-foreground">
@@ -42,23 +42,23 @@ export function Architecture() {
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">SSL Termination</span>
-                <Badge variant="outline">ACM Certificate</Badge>
+                <Badge variant="outline" className="bg-cyan-100 text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300">ACM Certificate</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Health Checks</span>
-                <Badge variant="outline">/health endpoint</Badge>
+                <Badge variant="outline" className="bg-cyan-100 text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300">/health endpoint</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Routing</span>
-                <Badge variant="outline">Path-based</Badge>
+                <Badge variant="outline" className="bg-cyan-100 text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300">Path-based</Badge>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-t-4 border-t-indigo-500">
           <CardHeader>
-            <CardTitle className="text-base">ECS Fargate Cluster</CardTitle>
+            <CardTitle className="text-base text-indigo-700 dark:text-indigo-400">ECS Fargate Cluster</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm text-muted-foreground">
@@ -68,35 +68,35 @@ export function Architecture() {
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Min Tasks</span>
-                <Badge variant="outline">2 (High Availability)</Badge>
+                <Badge variant="outline" className="bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">2 (High Availability)</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Max Tasks</span>
-                <Badge variant="outline">10 (Cost control)</Badge>
+                <Badge variant="outline" className="bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">10 (Cost control)</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Task Size</span>
-                <Badge variant="outline">2 vCPU / 4GB RAM</Badge>
+                <Badge variant="outline" className="bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">2 vCPU / 4GB RAM</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Target CPU</span>
-                <Badge variant="outline">70% utilization</Badge>
+                <Badge variant="outline" className="bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">70% utilization</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Target Memory</span>
-                <Badge variant="outline">80% utilization</Badge>
+                <Badge variant="outline" className="bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">80% utilization</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Scale-down cooldown</span>
-                <Badge variant="outline">5 minutes</Badge>
+                <Badge variant="outline" className="bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">5 minutes</Badge>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-t-4 border-t-emerald-500">
           <CardHeader>
-            <CardTitle className="text-base">RDS PostgreSQL</CardTitle>
+            <CardTitle className="text-base text-emerald-700 dark:text-emerald-400">RDS PostgreSQL</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm text-muted-foreground">
@@ -106,31 +106,31 @@ export function Architecture() {
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Instance Type</span>
-                <Badge variant="outline">db.t3.large</Badge>
+                <Badge variant="outline" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">db.t3.large</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Deployment</span>
-                <Badge variant="outline">Multi-AZ (Standby)</Badge>
+                <Badge variant="outline" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Multi-AZ (Standby)</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Storage</span>
-                <Badge variant="outline">100GB gp3</Badge>
+                <Badge variant="outline" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">100GB gp3</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Backup Retention</span>
-                <Badge variant="outline">7 days</Badge>
+                <Badge variant="outline" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">7 days</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Encryption</span>
-                <Badge variant="outline">AES-256 at rest</Badge>
+                <Badge variant="outline" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">AES-256 at rest</Badge>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-t-4 border-t-rose-500">
           <CardHeader>
-            <CardTitle className="text-base">ElastiCache Redis</CardTitle>
+            <CardTitle className="text-base text-rose-700 dark:text-rose-400">ElastiCache Redis</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm text-muted-foreground">
@@ -140,15 +140,15 @@ export function Architecture() {
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Node Type</span>
-                <Badge variant="outline">cache.t3.small</Badge>
+                <Badge variant="outline" className="bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300">cache.t3.small</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Engine</span>
-                <Badge variant="outline">Redis 7.0</Badge>
+                <Badge variant="outline" className="bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300">Redis 7.0</Badge>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Use Case</span>
-                <Badge variant="outline">Rate limiting</Badge>
+                <Badge variant="outline" className="bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300">Rate limiting</Badge>
               </div>
             </div>
           </CardContent>
@@ -157,22 +157,22 @@ export function Architecture() {
 
       {/* High Availability Strategy */}
       <div id="architecture-high-availability">
-        <Card>
+        <Card className="border-l-4 border-l-violet-500 bg-gradient-to-br from-violet-50 to-transparent dark:from-violet-950/20 dark:to-transparent">
           <CardHeader>
-            <CardTitle>High Availability & Fault Tolerance</CardTitle>
+            <CardTitle className="text-violet-700 dark:text-violet-300">High Availability & Fault Tolerance</CardTitle>
           <CardDescription>Design decisions ensuring service reliability</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6 md:grid-cols-3">
-            <div className="space-y-2">
-              <h4 className="font-medium text-sm">Multi-AZ Deployment</h4>
+            <div className="space-y-2 p-3 rounded-lg bg-violet-100/30 dark:bg-violet-900/20">
+              <h4 className="font-medium text-sm text-violet-900 dark:text-violet-200">Multi-AZ Deployment</h4>
               <p className="text-sm text-muted-foreground">
                 All stateful components (RDS, ElastiCache) deployed across 
                 multiple availability zones. ECS tasks distributed automatically.
               </p>
             </div>
-            <div className="space-y-2">
-              <h4 className="font-medium text-sm">Health Checks</h4>
+            <div className="space-y-2 p-3 rounded-lg bg-violet-100/30 dark:bg-violet-900/20">
+              <h4 className="font-medium text-sm text-violet-900 dark:text-violet-200">Health Checks</h4>
               <p className="text-sm text-muted-foreground">
                 ALB performs regular health checks on /health endpoint. 
                 Unhealthy tasks are automatically replaced by ECS.

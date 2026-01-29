@@ -64,41 +64,41 @@ export function CostAnalysis() {
 
       {/* Cost Summary Cards */}
       <div id="cost-analysis-summary" className="grid gap-4 md:grid-cols-3">
-        <Card>
+        <Card className="border-l-4 border-l-green-500 bg-gradient-to-br from-green-50 to-transparent dark:from-green-950/20 dark:to-transparent">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <DollarSign className="w-4 h-4 text-primary" />
+              <DollarSign className="w-4 h-4 text-green-600 dark:text-green-400" />
               MVP Monthly Cost
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">${mvpTotal}/mo</p>
+            <p className="text-3xl font-bold text-green-700 dark:text-green-400">${mvpTotal}/mo</p>
             <p className="text-sm text-muted-foreground mt-1">10K submissions/day capacity</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-blue-500 bg-gradient-to-br from-blue-50 to-transparent dark:from-blue-950/20 dark:to-transparent">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-primary" />
+              <TrendingUp className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               Scaled Monthly Cost
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">${scaledTotal.toLocaleString()}/mo</p>
+            <p className="text-3xl font-bold text-blue-700 dark:text-blue-400">${scaledTotal.toLocaleString()}/mo</p>
             <p className="text-sm text-muted-foreground mt-1">100K submissions/day capacity</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-purple-500 bg-gradient-to-br from-purple-50 to-transparent dark:from-purple-950/20 dark:to-transparent">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <TrendingDown className="w-4 h-4 text-accent" />
+              <TrendingDown className="w-4 h-4 text-purple-600 dark:text-purple-400" />
               Cost Per Submission
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">$0.0015</p>
+            <p className="text-3xl font-bold text-purple-700 dark:text-purple-400">$0.0015</p>
             <p className="text-sm text-muted-foreground mt-1">MVP: ${(mvpTotal / 300000).toFixed(4)}/request</p>
           </CardContent>
         </Card>

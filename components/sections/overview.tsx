@@ -19,45 +19,45 @@ export function Overview() {
 
       {/* Key Requirements Grid */}
       <div id="overview-requirements" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
+        <Card className="border-l-4 border-l-amber-500 bg-gradient-to-br from-amber-50 to-transparent dark:from-amber-950/20 dark:to-transparent">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Target className="w-4 h-4 text-primary" />
+              <Target className="w-4 h-4 text-amber-600 dark:text-amber-400" />
               Core Output
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">3-Way Classification</p>
+            <p className="text-2xl font-bold text-amber-700 dark:text-amber-300">3-Way Classification</p>
             <p className="text-sm text-muted-foreground mt-1">
               Correct, Partially Correct, Incorrect
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-orange-500 bg-gradient-to-br from-orange-50 to-transparent dark:from-orange-950/20 dark:to-transparent">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Zap className="w-4 h-4 text-primary" />
+              <Zap className="w-4 h-4 text-orange-600 dark:text-orange-400" />
               Throughput Target
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">10K/day</p>
+            <p className="text-2xl font-bold text-orange-700 dark:text-orange-300">10K/day</p>
             <p className="text-sm text-muted-foreground mt-1">
               Scalable to 100K+ submissions
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-red-500 bg-gradient-to-br from-red-50 to-transparent dark:from-red-950/20 dark:to-transparent">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Clock className="w-4 h-4 text-primary" />
+              <Clock className="w-4 h-4 text-red-600 dark:text-red-400" />
               Latency Goal
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{"<"}1s P95</p>
+            <p className="text-2xl font-bold text-red-700 dark:text-red-300">{"<"}1s P95</p>
             <p className="text-sm text-muted-foreground mt-1">
               Real-time processing target
             </p>

@@ -137,10 +137,10 @@ def adjacent_agreement(y_true, y_pred):
         <CardContent className="space-y-6">
           {/* Selection Rationale */}
           <div className="grid gap-4 md:grid-cols-3">
-            <div className="p-4 bg-accent/10 border border-accent/20 rounded-lg">
+            <div className="p-4 bg-gradient-to-br from-teal-100 to-transparent dark:from-teal-950/30 dark:to-transparent border-l-4 border-l-teal-500 rounded-lg">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle className="w-4 h-4 text-accent" />
-                <h4 className="font-medium text-sm">Chosen: DeBERTa-v3-base</h4>
+                <CheckCircle className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                <h4 className="font-medium text-sm text-teal-900 dark:text-teal-200">Chosen: DeBERTa-v3-base</h4>
               </div>
               <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
                 <li>SOTA on NLU benchmarks</li>
@@ -149,10 +149,10 @@ def adjacent_agreement(y_true, y_pred):
                 <li>Disentangled attention mechanism</li>
               </ul>
             </div>
-            <div className="p-4 bg-muted rounded-lg">
+            <div className="p-4 bg-gradient-to-br from-slate-200 to-transparent dark:from-slate-800 dark:to-transparent border-l-4 border-l-slate-400 rounded-lg">
               <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="w-4 h-4 text-muted-foreground" />
-                <h4 className="font-medium text-sm text-muted-foreground">Considered: GPT-4/LLMs</h4>
+                <AlertTriangle className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                <h4 className="font-medium text-sm text-slate-900 dark:text-slate-200">Considered: GPT-4/LLMs</h4>
               </div>
               <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
                 <li>Highest accuracy potential</li>
@@ -161,10 +161,10 @@ def adjacent_agreement(y_true, y_pred):
                 <li>Less control, API dependency</li>
               </ul>
             </div>
-            <div className="p-4 bg-muted rounded-lg">
+            <div className="p-4 bg-gradient-to-br from-slate-200 to-transparent dark:from-slate-800 dark:to-transparent border-l-4 border-l-slate-400 rounded-lg">
               <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="w-4 h-4 text-muted-foreground" />
-                <h4 className="font-medium text-sm text-muted-foreground">Considered: DistilBERT</h4>
+                <AlertTriangle className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                <h4 className="font-medium text-sm text-slate-900 dark:text-slate-200">Considered: DistilBERT</h4>
               </div>
               <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
                 <li>Fastest inference (~30ms)</li>
