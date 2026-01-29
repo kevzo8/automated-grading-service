@@ -35,10 +35,10 @@ export type Section =
 
 const SECTIONS: Section[] = [
   "overview",
-  "api-design",
   "architecture",
-  "ml-methodology",
+  "api-design",
   "tech-stack",
+  "ml-methodology",
   "cost-analysis",
   "deployment",
   "timeline",

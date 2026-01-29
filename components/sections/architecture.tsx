@@ -322,7 +322,7 @@ export function Architecture() {
       </div>
 
       {/* Cost Estimation */}
-      <div>
+      <div id="architecture-estimated-cost">
         <Card>
           <CardHeader>
             <CardTitle>Estimated Monthly Cost (MVP)</CardTitle>
@@ -331,24 +331,24 @@ export function Architecture() {
           <CardContent>
             <div className="space-y-3">
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                <span className="text-sm">ECS Fargate (2 tasks, 2vCPU/4GB)</span>
-                <span className="font-medium">~$150</span>
+                <span className="text-sm">ECS Fargate (2 tasks, 2vCPU/4GB, HA)</span>
+                <span className="font-medium">$260</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
                 <span className="text-sm">RDS PostgreSQL (db.t3.large, Multi-AZ)</span>
-                <span className="font-medium">~$280</span>
+                <span className="font-medium">$280</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
                 <span className="text-sm">ElastiCache Redis (cache.t3.small)</span>
-                <span className="font-medium">~$45</span>
+                <span className="font-medium">$45</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                <span className="text-sm">ALB, CloudWatch, Data Transfer</span>
-                <span className="font-medium">~$100</span>
+                <span className="text-sm">ALB, CloudWatch, ECR, S3, Data Transfer</span>
+                <span className="font-medium">$110</span>
               </div>
               <div className="flex justify-between items-center p-3 border-t-2 border-accent pt-4">
                 <span className="font-medium">Estimated Total</span>
-                <span className="font-bold text-lg">~$800/month</span>
+                <span className="font-bold text-lg">$695/month</span>
               </div>
             </div>
           </CardContent>

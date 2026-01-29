@@ -29,10 +29,10 @@ interface SidebarProps {
 // Define navigation items outside component to prevent recreation
 const NAVIGATION_ITEMS: { id: Section; label: string; iconName: string }[] = [
   { id: "overview", label: "Overview", iconName: "dashboard" },
-  { id: "api-design", label: "API Design", iconName: "json" },
   { id: "architecture", label: "Architecture", iconName: "network" },
-  { id: "ml-methodology", label: "ML Methodology", iconName: "brain" },
+  { id: "api-design", label: "API Design", iconName: "json" },
   { id: "tech-stack", label: "Tech Stack", iconName: "layers" },
+  { id: "ml-methodology", label: "ML Methodology", iconName: "brain" },
   { id: "cost-analysis", label: "Cost Analysis", iconName: "dollar" },
   { id: "deployment", label: "Deployment", iconName: "rocket" },
   { id: "timeline", label: "6-Month Timeline", iconName: "calendar" },

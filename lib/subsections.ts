@@ -15,7 +15,7 @@ export type SectionKey =
 export const SUBSECTIONS: Record<SectionKey, string[]> = {
   "overview": ["hero", "requirements", "tech-stack", "dataset", "future-enhancements"],
   "api-design": ["overview", "endpoints", "request-schema", "response-schema", "error-handling", "authentication", "rate-limiting", "data-persistence", "database-schema", "entity-relationship"],
-  "architecture": ["overview", "diagram", "components", "high-availability", "scaling", "security"],
+  "architecture": ["overview", "diagram", "components", "high-availability", "scaling", "security", "estimated-cost"],
   "ml-methodology": ["overview", "model-selection", "data-processing", "class-imbalance", "augmentation", "training", "evaluation", "pre-production-validation", "llm-integration"],
   "tech-stack": ["overview", "decision-framework", "api-framework", "ml-framework", "database", "infrastructure", "caching", "summary"],
   "cost-analysis": ["overview", "summary", "mvp-breakdown", "cost-effectiveness", "llm-comparison", "scaled-deployment", "post-mvp-optimization"],
