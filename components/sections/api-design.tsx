@@ -449,6 +449,16 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
         <CardContent>
           <CodeBlock 
             code={`-- Normalized relational schema (request + result separated)
+CREATE TABLE api_keys (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    key_hash VARCHAR(64) UNIQUE NOT NULL,
+    service_name VARCHAR(100) NOT NULL,
+    rate_limit INTEGER DEFAULT 100,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    
+    INDEX idx_key_hash (key_hash)
+);
+
 CREATE TABLE grading_requests (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     request_id VARCHAR(32) UNIQUE NOT NULL,
