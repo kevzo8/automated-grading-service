@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect, useRef } from "react"
+import { useState, useMemo, useEffect, useRef, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import dynamic from "next/dynamic"
 import { Sidebar } from "@/components/sidebar"
@@ -227,5 +227,9 @@ function HomeContent() {
 }
 
 export default function Home() {
-  return <HomeContent />
+  return (
+    <Suspense>
+      <HomeContent />
+    </Suspense>
+  )
 }
