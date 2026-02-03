@@ -441,7 +441,8 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
         </CardHeader>
         <CardContent>
           <CodeBlock 
-            code={`-- Core submissions table
+            code={`-- Denormalized submissions table (request + result in one)
+-- See Q&A for normalized relational design discussion
 CREATE TABLE grading_submissions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     request_id VARCHAR(32) UNIQUE NOT NULL,
