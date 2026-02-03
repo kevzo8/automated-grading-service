@@ -572,7 +572,7 @@ CREATE TABLE grading_results (
 
               {/* grading_results table */}
               <div className="border-2 border-green-500 rounded-lg overflow-hidden">
-                <div className="bg-green-500 text-white px-4 py-2 font-semibold text-sm">
+                <div className="bg-green-500 text-black px-4 py-2 font-semibold text-sm">
                   grading_results
                 </div>
                 <div className="p-3 space-y-1 bg-background">
