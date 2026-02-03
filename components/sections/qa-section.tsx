@@ -98,22 +98,18 @@ export function QASection() {
                 <div>
                   <p className="font-medium mb-2">Schema Design:</p>
                   <pre className="p-3 bg-muted rounded-lg overflow-x-auto text-xs font-mono">
-{`-- Core tables
-grading_requests (
+{`-- Core submissions table
+grading_submissions (
   id UUID PRIMARY KEY,
+  request_id VARCHAR(32) UNIQUE NOT NULL,
   question TEXT NOT NULL,
   reference_answer TEXT NOT NULL,
   student_answer TEXT NOT NULL,
-  metadata JSONB,  -- Flexible for future fields
-  created_at TIMESTAMPTZ DEFAULT NOW()
-)
-
-grading_results (
-  id UUID PRIMARY KEY,
-  request_id UUID REFERENCES grading_requests(id),
-  grade VARCHAR(20) NOT NULL,
-  confidence FLOAT,
-  model_version VARCHAR(50),
+  metadata JSONB,
+  grade VARCHAR(20) NOT NULL,      -- 'correct', 'partially_correct', 'incorrect'
+  label_id SMALLINT NOT NULL,       -- 0, 1, 2
+  confidence FLOAT,                 -- Post-MVP
+  model_version VARCHAR(20),
   processing_time_ms INTEGER,
   created_at TIMESTAMPTZ DEFAULT NOW()
 )`}
