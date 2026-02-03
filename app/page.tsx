@@ -1,14 +1,12 @@
 "use client"
 
-import { useState, useMemo, useEffect, useRef } from "react"
+import { useState, useMemo, useEffect, useRef, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import dynamic from "next/dynamic"
 import { Sidebar } from "@/components/sidebar"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { SUBSECTIONS, getSubsectionId } from "@/lib/subsections"
-
-export const dynamic = 'force-dynamic'
 
 // Dynamic imports for code splitting - components load only when needed
 const Overview = dynamic(() => import("@/components/sections/overview").then(mod => ({ default: mod.Overview })), { ssr: true })
@@ -50,7 +48,7 @@ const SECTIONS: Section[] = [
   "thank-you"
 ]
 
-export default function Home() {
+function HomeContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   
@@ -225,5 +223,13 @@ export default function Home() {
         </footer>
       </div>
     </div>
+  )
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="flex h-screen items-center justify-center">Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   )
 }
