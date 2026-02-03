@@ -22,7 +22,8 @@ export function APIDesign({ currentSubsection }: { currentSubsection: string }) 
   const responseSchema = `{
   "request_id": "req_7f3a2b1c",
   "grade": "correct",               // One of: "correct", "partially_correct", "incorrect"
-  "processed_at": "2026-01-28T14:30:00Z",  // ISO 8601 UTC
+  "label_id": 0,                    // Numeric label: 0=correct, 1=partially_correct, 2=incorrect
+  "created_at": "2026-01-28T14:30:00Z",  // ISO 8601 UTC (when submitted to grading)
   "model_version": "v1.2.0",
   "processing_time_ms": 245,        // Important for latency monitoring
   
@@ -174,13 +175,19 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
                   </div>
                   <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
                     <div className="flex-1">
+                      <div className="font-mono text-sm font-semibold">label_id</div>
+                      <div className="text-xs text-muted-foreground">integer • 0=correct, 1=partially_correct, 2=incorrect</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
+                    <div className="flex-1">
                       <div className="font-mono text-sm font-semibold">grade</div>
                       <div className="text-xs text-muted-foreground">string • correct | partially_correct | incorrect</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-3 bg-background rounded border-l-4 border-green-500">
                     <div className="flex-1">
-                      <div className="font-mono text-sm font-semibold">processed_at</div>
+                      <div className="font-mono text-sm font-semibold">created_at</div>
                       <div className="text-xs text-muted-foreground">string • ISO 8601 UTC timestamp</div>
                     </div>
                   </div>
