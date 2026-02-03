@@ -13,12 +13,13 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 interface GradingResult {
   request_id: string
   grade: "correct" | "partially_correct" | "incorrect"
-  processed_at: string
+  label_id: number              // 0=correct, 1=partially_correct, 2=incorrect
+  created_at: string
   model_version: string
-  confidence: number | null
-  justification: string | null
-  feedback: string | null
   processing_time_ms: number
+  confidence: number | null      // Post-MVP
+  justification: string | null   // Post-MVP
+  feedback: string | null        // Post-MVP
 }
 
 // Real examples based on SciEntsBank dataset patterns
@@ -213,15 +214,23 @@ export function Playground() {
       confidence = 0.65 + gradeResult.similarity * 0.3
     }
 
+    // Map grade string to label_id: 0=correct, 1=partially_correct, 2=incorrect
+    const gradeToLabelId: Record<string, number> = {
+      "correct": 0,
+      "partially_correct": 1,
+      "incorrect": 2
+    }
+
     setResult({
       request_id: `req_${Date.now().toString(36)}_${Math.random().toString(36).substring(2, 6)}`,
       grade,
-      processed_at: new Date().toISOString(),
+      label_id: gradeToLabelId[grade],
+      created_at: new Date().toISOString(),
       model_version: "deberta-v3-base-scientsbank-v1.0.0",
+      processing_time_ms: Math.floor(150 + Math.random() * 200),
       confidence: Math.round(confidence * 100) / 100,
       justification: null, // Post-MVP feature
-      feedback: null, // Post-MVP feature
-      processing_time_ms: Math.floor(150 + Math.random() * 200)
+      feedback: null // Post-MVP feature
     })
 
     setIsLoading(false)
