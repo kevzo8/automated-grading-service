@@ -179,7 +179,7 @@ export function Overview() {
                 <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
                 <div>
                   <p className="font-medium">Justification</p>
-                  <p className="text-sm text-muted-foreground">Explanation of why an answer was marked incorrect</p>
+                  <p className="text-sm text-muted-foreground">Clear rationale for why an answer was graded correct, partially correct, or incorrect</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
