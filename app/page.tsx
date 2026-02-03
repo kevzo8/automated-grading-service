@@ -8,18 +8,20 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { SUBSECTIONS, getSubsectionId } from "@/lib/subsections"
 
+export const dynamic = 'force-dynamic'
+
 // Dynamic imports for code splitting - components load only when needed
-const Overview = dynamic(() => import("@/components/sections/overview").then(mod => ({ default: mod.Overview })), { ssr: false })
-const APIDesign = dynamic(() => import("@/components/sections/api-design").then(mod => ({ default: mod.APIDesign })), { ssr: false })
-const Architecture = dynamic(() => import("@/components/sections/architecture").then(mod => ({ default: mod.Architecture })), { ssr: false })
-const MLMethodology = dynamic(() => import("@/components/sections/ml-methodology").then(mod => ({ default: mod.MLMethodology })), { ssr: false })
-const Deployment = dynamic(() => import("@/components/sections/deployment").then(mod => ({ default: mod.Deployment })), { ssr: false })
-const Playground = dynamic(() => import("@/components/sections/playground").then(mod => ({ default: mod.Playground })), { ssr: false })
-const Timeline = dynamic(() => import("@/components/sections/timeline").then(mod => ({ default: mod.Timeline })), { ssr: false })
-const TechStack = dynamic(() => import("@/components/sections/tech-stack").then(mod => ({ default: mod.TechStack })), { ssr: false })
-const CostAnalysis = dynamic(() => import("@/components/sections/cost-analysis").then(mod => ({ default: mod.CostAnalysis })), { ssr: false })
-const QASection = dynamic(() => import("@/components/sections/qa-section").then(mod => ({ default: mod.QASection })), { ssr: false })
-const ThankYou = dynamic(() => import("@/components/sections/thank-you").then(mod => ({ default: mod.ThankYou })), { ssr: false })
+const Overview = dynamic(() => import("@/components/sections/overview").then(mod => ({ default: mod.Overview })), { ssr: true })
+const APIDesign = dynamic(() => import("@/components/sections/api-design").then(mod => ({ default: mod.APIDesign })), { ssr: true })
+const Architecture = dynamic(() => import("@/components/sections/architecture").then(mod => ({ default: mod.Architecture })), { ssr: true })
+const MLMethodology = dynamic(() => import("@/components/sections/ml-methodology").then(mod => ({ default: mod.MLMethodology })), { ssr: true })
+const Deployment = dynamic(() => import("@/components/sections/deployment").then(mod => ({ default: mod.Deployment })), { ssr: true })
+const Playground = dynamic(() => import("@/components/sections/playground").then(mod => ({ default: mod.Playground })), { ssr: true })
+const Timeline = dynamic(() => import("@/components/sections/timeline").then(mod => ({ default: mod.Timeline })), { ssr: true })
+const TechStack = dynamic(() => import("@/components/sections/tech-stack").then(mod => ({ default: mod.TechStack })), { ssr: true })
+const CostAnalysis = dynamic(() => import("@/components/sections/cost-analysis").then(mod => ({ default: mod.CostAnalysis })), { ssr: true })
+const QASection = dynamic(() => import("@/components/sections/qa-section").then(mod => ({ default: mod.QASection })), { ssr: true })
+const ThankYou = dynamic(() => import("@/components/sections/thank-you").then(mod => ({ default: mod.ThankYou })), { ssr: true })
 
 export type Section = 
   | "overview" 
