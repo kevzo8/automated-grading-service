@@ -85,6 +85,7 @@
 - [ ] Point to accuracy targets with benchmarks - shows research
 - [ ] Mention privacy/compliance - shows maturity
 - [ ] If playground demo differs from real model - explain it's a heuristic demo
+- [ ] If asked about alternatives, mention optional integrations/data sources (e.g., Convex, Kaggle) as future extensions
 
 ---
 

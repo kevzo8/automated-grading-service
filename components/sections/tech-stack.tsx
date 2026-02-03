@@ -396,6 +396,107 @@ export function TechStack() {
         </Card>
       </div>
 
+      {/* Alternatives Considered */}
+      <div id="tech-stack-alternatives" className="space-y-4">
+        <h2 className="text-2xl font-bold">Alternatives Considered</h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Data Sources</CardTitle>
+              <CardDescription>Additional datasets and marketplaces</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>Kaggle:</strong> Great for experimentation, but licensing and dataset consistency vary.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>OpenML:</strong> Useful catalog, but fewer education-specific QA datasets.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>Partner data exchange:</strong> Requires legal agreements and longer lead times.</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Backend / Data Layer</CardTitle>
+              <CardDescription>Managed databases and BaaS options</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>Convex:</strong> Fast iteration, but introduces vendor lock-in and limited SQL analytics.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>Supabase/Firebase:</strong> Great for B2C apps, but Postgres + AWS fits enterprise compliance better.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>PlanetScale:</strong> Strong scale, but extra complexity for a modest MVP workload.</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Model Serving</CardTitle>
+              <CardDescription>Managed inference platforms</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>SageMaker/Vertex AI:</strong> Excellent managed ops, but higher cost and less control for MVP.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>Modal/Replicate:</strong> Great for rapid demos, but harder to meet compliance and SLA needs.</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">MLOps & Evaluation</CardTitle>
+              <CardDescription>Tracking, labeling, and vector search</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>W&amp;B / MLflow:</strong> Helpful at scale, but adds overhead before we have many experiments.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>Label Studio/Prodigy:</strong> Great for human-in-the-loop, but not needed for initial dataset.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span><strong>Vector DBs (Pinecone, Weaviate, pgvector):</strong> Not required for 3-way classification; can be added for retrieval later.</span>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        <Card className="bg-muted/50">
+          <CardContent className="pt-4">
+            <div className="flex items-start gap-3">
+              <ArrowRight className="w-5 h-5 text-accent mt-0.5" />
+              <div>
+                <p className="font-medium">Rationale</p>
+                <p className="text-sm text-muted-foreground">
+                  These tools are strong candidates for future phases, but the MVP prioritizes low operational overhead,
+                  predictable costs, and compliance-aligned infrastructure. We can adopt any of the above once real usage
+                  and data scale justify the additional complexity.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Summary Table */}
       <div id="tech-stack-summary">
         <Card>
