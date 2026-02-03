@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useMemo, useEffect, useRef } from "react"
+import { useSearchParams, useRouter } from "next/navigation"
 import dynamic from "next/dynamic"
 import { Sidebar } from "@/components/sidebar"
 import { Button } from "@/components/ui/button"
@@ -48,12 +49,42 @@ const SECTIONS: Section[] = [
 ]
 
 export default function Home() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [currentSubsection, setCurrentSubsection] = useState(0)
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  
+  // Initialize from URL params or default to first section
+  const initialSection = searchParams.get('section') as Section | null
+  const initialSubsection = searchParams.get('subsection')
+  
+  const [currentIndex, setCurrentIndex] = useState(() => {
+    if (initialSection && SECTIONS.includes(initialSection)) {
+      return SECTIONS.indexOf(initialSection)
+    }
+    return 0
+  })
+  
+  const [currentSubsection, setCurrentSubsection] = useState(() => {
+    if (initialSubsection) {
+      const num = parseInt(initialSubsection, 10)
+      return isNaN(num) ? 0 : num
+    }
+    return 0
+  })
+  
   const activeSection = SECTIONS[currentIndex]
   const contentRef = useRef<HTMLDivElement>(null)
 
   const subsectionCount = SUBSECTIONS[activeSection]?.length ?? 1
+  
+  // Update URL whenever section or subsection changes
+  useEffect(() => {
+    const params = new URLSearchParams()
+    params.set('section', activeSection)
+    if (currentSubsection > 0) {
+      params.set('subsection', currentSubsection.toString())
+    }
+    router.replace(`?${params.toString()}`, { scroll: false })
+  }, [activeSection, currentSubsection, router])
 
   const goNextSubsection = () => {
     if (currentSubsection < subsectionCount - 1) {
