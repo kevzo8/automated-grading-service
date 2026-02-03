@@ -278,7 +278,8 @@ resource "aws_cloudwatch_metric_alarm" "prediction_drift" {
                 </div>
                 <div className="p-4 bg-muted rounded-lg text-center">
                   <p className="text-2xl font-bold">250-300ms</p>
-                  <p className="text-sm text-muted-foreground">P95 Latency (CPU)</p>
+                  <p className="text-sm text-muted-foreground">MVP P95 Latency</p>
+                  <p className="text-xs text-muted-foreground mt-1">(Goal: &lt;1s long-term)</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg text-center">
                   <p className="text-2xl font-bold">{"<"}0.1%</p>

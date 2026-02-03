@@ -57,9 +57,9 @@ export function Overview() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-violet-700 dark:text-violet-300">250-300ms</p>
+            <p className="text-2xl font-bold text-violet-700 dark:text-violet-300">&lt;1s P95</p>
             <p className="text-sm text-muted-foreground mt-1">
-              P95 latency (CPU inference)
+              Long-term goal (MVP: 250-300ms)
             </p>
           </CardContent>
         </Card>
