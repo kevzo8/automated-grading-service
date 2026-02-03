@@ -111,8 +111,9 @@ grading_requests (
 grading_results (
   id UUID PRIMARY KEY,
   request_id UUID REFERENCES grading_requests(id),
-  grade VARCHAR(20) NOT NULL,
-  confidence FLOAT,
+  grade VARCHAR(20) NOT NULL,      -- 'correct', 'partially_correct', 'incorrect'
+  label_id SMALLINT NOT NULL,       -- 0=correct, 1=partially_correct, 2=incorrect
+  confidence FLOAT,                 -- Post-MVP
   model_version VARCHAR(50),
   processing_time_ms INTEGER,
   created_at TIMESTAMPTZ DEFAULT NOW()

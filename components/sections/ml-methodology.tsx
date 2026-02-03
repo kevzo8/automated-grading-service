@@ -145,7 +145,7 @@ def adjacent_agreement(y_true, y_pred):
               <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
                 <li>SOTA on NLU benchmarks</li>
                 <li>~250-300ms inference P95 (CPU)</li>
-                <li>86M parameters</li>
+                <li>184M parameters</li>
                 <li>Disentangled attention mechanism</li>
               </ul>
             </div>

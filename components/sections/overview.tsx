@@ -57,9 +57,9 @@ export function Overview() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-violet-700 dark:text-violet-300">{"<"}1s P95</p>
+            <p className="text-2xl font-bold text-violet-700 dark:text-violet-300">250-300ms</p>
             <p className="text-sm text-muted-foreground mt-1">
-              Real-time processing target
+              P95 latency (CPU inference)
             </p>
           </CardContent>
         </Card>
