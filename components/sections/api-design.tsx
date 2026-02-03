@@ -441,9 +441,8 @@ X-RateLimit-Reset: 1706450400    # Unix timestamp for reset`
         </CardHeader>
         <CardContent>
           <CodeBlock 
-            code={`-- Denormalized submissions table (request + result in one)
--- See Q&A for normalized relational design discussion
-CREATE TABLE grading_submissions (
+            code={`-- Normalized relational schema (request + result separated)
+CREATE TABLE grading_requests (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     request_id VARCHAR(32) UNIQUE NOT NULL,
     
@@ -452,6 +451,18 @@ CREATE TABLE grading_submissions (
     reference_answer TEXT NOT NULL,
     student_answer TEXT NOT NULL,
     metadata JSONB DEFAULT '{}',
+    
+    -- Tracking
+    api_key_id UUID REFERENCES api_keys(id),
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    
+    INDEX idx_created_at (created_at),
+    INDEX idx_api_key (api_key_id)
+);
+
+CREATE TABLE grading_results (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    request_id UUID NOT NULL REFERENCES grading_requests(id) ON DELETE CASCADE,
     
     -- Output data
     grade VARCHAR(20) NOT NULL,  -- 'correct', 'partially_correct', 'incorrect'
@@ -463,15 +474,11 @@ CREATE TABLE grading_submissions (
     -- Tracking
     model_version VARCHAR(20) NOT NULL,
     processing_time_ms INTEGER,
-    api_key_id UUID REFERENCES api_keys(id),
-    
-    -- Timestamps
     created_at TIMESTAMPTZ DEFAULT NOW(),
     
-    -- Indexes for common queries
-    INDEX idx_created_at (created_at),
-    INDEX idx_api_key (api_key_id),
-    INDEX idx_grade (grade)
+    INDEX idx_request (request_id),
+    INDEX idx_grade (grade),
+    INDEX idx_created_at (created_at)
 );`} 
             language="sql" 
           />
@@ -479,11 +486,45 @@ CREATE TABLE grading_submissions (
           {/* Entity Relationship Diagram */}
           <div id="api-design-entity-relationship" className="mt-6 p-4 border rounded-lg bg-muted/30">
             <h4 className="font-medium text-sm mb-4">Entity Relationship Diagram</h4>
-            <div className="grid gap-4 md:grid-cols-2">
-              {/* grading_submissions table */}
+            <div className="grid gap-4 md:grid-cols-3">
+              {/* api_keys table */}
+              <div className="border-2 border-accent rounded-lg overflow-hidden">
+                <div className="bg-accent text-accent-foreground px-4 py-2 font-semibold text-sm">
+                  api_keys
+                </div>
+                <div className="p-3 space-y-1 bg-background">
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-yellow-500">🔑</span>
+                    <span className="font-mono">id</span>
+                    <span className="text-muted-foreground">UUID</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">key_hash</span>
+                    <span className="text-muted-foreground">VARCHAR(64)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">service_name</span>
+                    <span className="text-muted-foreground">VARCHAR(100)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">rate_limit</span>
+                    <span className="text-muted-foreground">INTEGER</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">created_at</span>
+                    <span className="text-muted-foreground">TIMESTAMPTZ</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* grading_requests table */}
               <div className="border-2 border-primary rounded-lg overflow-hidden">
                 <div className="bg-primary text-primary-foreground px-4 py-2 font-semibold text-sm">
-                  grading_submissions
+                  grading_requests
                 </div>
                 <div className="p-3 space-y-1 bg-background">
                   <div className="flex items-center gap-2 text-xs">
@@ -515,6 +556,35 @@ CREATE TABLE grading_submissions (
                     <span className="text-accent">○</span>
                     <span className="font-mono">metadata</span>
                     <span className="text-muted-foreground">JSONB</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-purple-500">🔗</span>
+                    <span className="font-mono">api_key_id</span>
+                    <span className="text-muted-foreground">UUID → api_keys</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-blue-500">●</span>
+                    <span className="font-mono">created_at</span>
+                    <span className="text-muted-foreground">TIMESTAMPTZ</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* grading_results table */}
+              <div className="border-2 border-green-500 rounded-lg overflow-hidden">
+                <div className="bg-green-500 text-white px-4 py-2 font-semibold text-sm">
+                  grading_results
+                </div>
+                <div className="p-3 space-y-1 bg-background">
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-yellow-500">🔑</span>
+                    <span className="font-mono">id</span>
+                    <span className="text-muted-foreground">UUID</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-purple-500">🔗</span>
+                    <span className="font-mono">request_id</span>
+                    <span className="text-muted-foreground">UUID → grading_requests</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-green-500">●</span>
@@ -549,45 +619,6 @@ CREATE TABLE grading_submissions (
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-accent">○</span>
                     <span className="font-mono">processing_time_ms</span>
-                    <span className="text-muted-foreground">INTEGER</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="text-purple-500">🔗</span>
-                    <span className="font-mono">api_key_id</span>
-                    <span className="text-muted-foreground">UUID → api_keys</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="text-blue-500">●</span>
-                    <span className="font-mono">created_at</span>
-                    <span className="text-muted-foreground">TIMESTAMPTZ</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* api_keys table */}
-              <div className="border-2 border-accent rounded-lg overflow-hidden">
-                <div className="bg-accent text-accent-foreground px-4 py-2 font-semibold text-sm">
-                  api_keys
-                </div>
-                <div className="p-3 space-y-1 bg-background">
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="text-yellow-500">🔑</span>
-                    <span className="font-mono">id</span>
-                    <span className="text-muted-foreground">UUID</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="text-blue-500">●</span>
-                    <span className="font-mono">key_hash</span>
-                    <span className="text-muted-foreground">VARCHAR(64)</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="text-blue-500">●</span>
-                    <span className="font-mono">service_name</span>
-                    <span className="text-muted-foreground">VARCHAR(100)</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="text-blue-500">●</span>
-                    <span className="font-mono">rate_limit</span>
                     <span className="text-muted-foreground">INTEGER</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs">
@@ -635,8 +666,8 @@ CREATE TABLE grading_submissions (
                   </div>
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-purple-500">🔗</span>
-                    <span className="font-mono">submission_id</span>
-                    <span className="text-muted-foreground">UUID → grading_submissions</span>
+                    <span className="font-mono">result_id</span>
+                    <span className="text-muted-foreground">UUID → grading_results</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-green-500">●</span>
