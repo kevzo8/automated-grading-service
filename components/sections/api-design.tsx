@@ -476,7 +476,7 @@ CREATE TABLE grading_submissions (
             language="sql" 
           />
           
-          {/* Visual Database Schema */}
+          {/* Entity Relationship Diagram */}
           <div id="api-design-entity-relationship" className="mt-6 p-4 border rounded-lg bg-muted/30">
             <h4 className="font-medium text-sm mb-4">Entity Relationship Diagram</h4>
             <div className="grid gap-4 md:grid-cols-2">
